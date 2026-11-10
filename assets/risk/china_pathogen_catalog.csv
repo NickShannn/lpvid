@@ -1,0 +1,161 @@
+seq,name_cn,name_en,family_cn,family_en,category,statutory,covered
+1,类天花病毒,Alastrim virus,痘病毒科,Poxviridae,第一类,,no
+2,天花病毒,Variola virus,痘病毒科,Poxviridae,第一类,,no
+3,猴痘病毒g,Mpox virus,痘病毒科,Poxviridae,第一类,乙类,no
+4,亨德拉病毒,Hendra virus,副黏病毒科,Paramyxoviridae,第一类,,yes
+5,尼帕病毒,Nipah virus,副黏病毒科,Paramyxoviridae,第一类,,yes
+6,希普尔病毒,Hypr virus,黄病毒科,Flaviviridae,第一类,,yes
+7,库姆灵厄病毒,Kumlinge virus,黄病毒科,Flaviviridae,第一类,,yes
+8,卡萨诺尔森林病病毒,Kyasanur Forest disease virus,黄病毒科,Flaviviridae,第一类,,yes
+9,跳跃病病毒,Louping ill virus,黄病毒科,Flaviviridae,第一类,,yes
+10,汉扎罗瓦病毒,Hanzalova virus,黄病毒科,Flaviviridae,第一类,,yes
+11,鄂木斯克出血热病毒,Omsk hemorrhagic fever virus,黄病毒科,Flaviviridae,第一类,,yes
+12,圣路易斯脑炎病毒,St.Louis encephalitis virus,黄病毒科,Flaviviridae,第一类,,yes
+13,蜱传脑炎病毒h,Tick-borne encephalitis virus,黄病毒科,Flaviviridae,第一类,,yes
+14,黄热病毒,Yellow fever virus,黄病毒科,Flaviviridae,第一类,,yes
+15,克里米亚—刚果出血热病毒（新疆出血热病毒）,Crimean-Congo hemorrhagic fever virus (Xinjiang hemorrhagic fever virus),内罗病毒科,Nairoviridae,第一类,,yes
+16,猴疱疹病毒,Herpesvirus simiae,疱疹病毒科,Herpesviridae,第一类,,no
+17,东方马脑炎病毒,Eastern equine encephalitis virus,披膜病毒科,Togaviridae,第一类,,yes
+18,委内瑞拉马脑炎病毒,Venezuelan equine encephalitis virus,披膜病毒科,Togaviridae,第一类,,yes
+19,西方马脑炎病毒,Western equine encephalitis virus,披膜病毒科,Togaviridae,第一类,,yes
+20,弗莱克索尔病毒,Flexal virus,沙粒病毒科,Arenaviridae,第一类,,yes
+21,鸠宁病毒,Junin virus,沙粒病毒科,Arenaviridae,第一类,,yes
+22,瓜纳瑞托病毒,Guanarito virus,沙粒病毒科,Arenaviridae,第一类,,yes
+23,拉沙热病毒,Lassa fever virus,沙粒病毒科,Arenaviridae,第一类,,yes
+24,马秋波病毒,Machupo virus,沙粒病毒科,Arenaviridae,第一类,,yes
+25,莫佩亚病毒（和其他塔卡里伯病毒）,Mopeia virus (and other Tacaribe viruses),沙粒病毒科,Arenaviridae,第一类,,yes
+26,萨比亚病毒,Sabia virus,沙粒病毒科,Arenaviridae,第一类,,yes
+27,塔卡里伯病毒,Tacaribe virus,沙粒病毒科,Arenaviridae,第一类,,yes
+28,埃博拉病毒,Ebola virus,丝状病毒科,Filoviridae,第一类,,yes
+29,马尔堡病毒,Marburg virus,丝状病毒科,Filoviridae,第一类,,yes
+30,大别班达病毒（发热伴血小板减少综合征病毒）,Dabie bandavirus (SFTS Virus),白蛉纤细病毒科,Phenuiviridae,第二类,,yes
+31,戈尔迪病毒,Gordil virus,白蛉纤细病毒科,Phenuiviridae,第二类,,yes
+32,哈特兰病毒,Heartland bandavirus,白蛉纤细病毒科,Phenuiviridae,第二类,,yes
+33,伊泰图巴病毒,Itaituba virus,白蛉纤细病毒科,Phenuiviridae,第二类,,yes
+34,哈桑病毒,Khasan virus,白蛉纤细病毒科,Phenuiviridae,第二类,,yes
+35,拉兹丹病毒,Razdan virus,白蛉纤细病毒科,Phenuiviridae,第二类,,yes
+36,裂谷热病毒,Rift valley fever virus,白蛉纤细病毒科,Phenuiviridae,第二类,,yes
+37,加尔巴病毒,Garba virus,弹状病毒科,Rhabdoviridae,第二类,,yes
+38,狂犬病病毒（街毒）,Rabies virus (street virus),弹状病毒科,Rhabdoviridae,第二类,乙类,yes
+39,罗尚博病毒,Rochambeau virus,弹状病毒科,Rhabdoviridae,第二类,,yes
+40,伊年加皮病毒,Inhangapi virus,弹状病毒科,Rhabdoviridae,第二类,,yes
+41,中东呼吸综合征冠状病毒（MERS冠状病毒）,Middle East Respiratory Syndrome coronavirus (MERS-CoV),冠状病毒科,Coronaviridae,第二类,,yes
+42,严重急性呼吸综合征冠状病毒（SARS冠状病毒）,Severe acute respiratory syndrome coronavirus (SARS-CoV),冠状病毒科,Coronaviridae,第二类,乙类,yes
+43,新型冠状病毒i,"Severe acute respiratory syndrome coronavirus 2,  (SARS-CoV-2)",冠状病毒科,Coronaviridae,第二类,乙类,yes
+44,引起肺综合征的汉坦病毒,Hantaviruses causing pulmonary syndrome,汉坦病毒科,Hantaviridae,第二类,乙类,yes
+45,引起肾综合征出血热的汉坦病毒,Hantaviruses causing hemorrhagic fever with renal syndrome,汉坦病毒科,Hantaviridae,第二类,乙类,yes
+46,乙型脑炎病毒（日本脑炎病毒）,Japanese encephalitis virus,黄病毒科,Flaviviridae,第二类,乙类,yes
+47,墨累谷脑炎病毒,Murray valley encephalitis virus,黄病毒科,Flaviviridae,第二类,,yes
+48,根岸病毒,Negishi virus,黄病毒科,Flaviviridae,第二类,,yes
+49,波瓦森病毒,Powassan virus,黄病毒科,Flaviviridae,第二类,,yes
+50,罗西奥病毒,Rocio virus,黄病毒科,Flaviviridae,第二类,,yes
+51,塞皮克病毒,Sepik virus,黄病毒科,Flaviviridae,第二类,,yes
+52,西尼罗病毒,West Nile virus,黄病毒科,Flaviviridae,第二类,,yes
+53,伊塞克病毒,Issyk-Kul virus,内罗病毒科,Nairoviridae,第二类,,yes
+54,内罗毕绵羊病病毒,Nairobi sheep disease virus,内罗病毒科,Nairoviridae,第二类,,yes
+55,萨哈林病毒（幌筵岛病毒）,Sapphire orthonairovirus  (Paramushir virus),内罗病毒科,Nairoviridae,第二类,,yes
+56,塔姆德病毒,Tamdy virus,内罗病毒科,Nairoviridae,第二类,,yes
+57,人免疫缺陷病毒（Ⅰ型和Ⅱ型）j,Human immunodeficiency virus (HIV) (Type 1 and 2 virus),逆转录病毒科,Retroviridae,第二类,,no
+58,猴免疫缺陷病毒,Simian immunodeficiency virus (SIV),逆转录病毒科,Retroviridae,第二类,,no
+59,基孔肯雅病毒,Chikungunya virus,披膜病毒科,Togaviridae,第二类,,yes
+60,埃弗格莱兹病毒,Everglades virus,披膜病毒科,Togaviridae,第二类,,yes
+61,库孜拉加奇病毒,Kyzylagach virus,披膜病毒科,Togaviridae,第二类,,yes
+62,马亚罗病毒,Mayaro virus,披膜病毒科,Togaviridae,第二类,,yes
+63,米德尔堡病毒,Middelburg virus,披膜病毒科,Togaviridae,第二类,,yes
+64,穆坎布病毒,Mucambo virus,披膜病毒科,Togaviridae,第二类,,yes
+65,恩杜姆病毒,Ndumu virus,披膜病毒科,Togaviridae,第二类,,yes
+66,鹭山病毒,Sagiyama virus,披膜病毒科,Togaviridae,第二类,,yes
+67,淋巴细胞脉络丛脑膜炎（嗜神经性的）病毒,Lymphocytic choriomeningitis (neurotropic) virus,沙粒病毒科,Arenaviridae,第二类,,yes
+68,脊髓灰质炎病毒k,Polio virus,小RNA病毒科,Picornaviridae,第二类,乙类,yes
+69,多里病毒,Dhori virus,正黏病毒科,Orthomyxoviridae,第二类,,yes
+70,高致病性禽流感病毒,High pathogenic avian influenza virus,正黏病毒科,Orthomyxoviridae,第二类,乙类,yes
+71,加利福尼亚脑炎病毒,California encephalitis virus,周布尼亚病毒科,Peribunyaviridae,第二类,,yes
+72,格米斯顿病毒,Germiston virus,周布尼亚病毒科,Peribunyaviridae,第二类,,yes
+73,伊尼尼病毒（辛布正布尼亚病毒）,Inini virus (Simbu orthobunyavirus),周布尼亚病毒科,Peribunyaviridae,第二类,,yes
+74,奥罗普切病毒,Oropouche virus,周布尼亚病毒科,Peribunyaviridae,第二类,,yes
+75,白蛉热病毒,Sandfly fever virus,白蛉纤细病毒科,Phenuiviridae,第三类,,yes
+76,诺如病毒,Norovirus,杯状病毒科,Caliciviridae,第三类,,yes
+77,札如病毒,Sapovirus,杯状病毒科,Caliciviridae,第三类,,yes
+78,费兰杜病毒,Flanders virus,弹状病毒科,Rhabdoviridae,第三类,,yes
+79,哈特帕克病毒,Hart Park virus,弹状病毒科,Rhabdoviridae,第三类,,yes
+80,狂犬病病毒（固定毒）,Rabies virus (fixed virus),弹状病毒科,Rhabdoviridae,第三类,乙类,yes
+81,水疱性口炎病毒,Vesicular stomatitis virus,弹状病毒科,Rhabdoviridae,第三类,,yes
+82,水牛痘病毒,Buffalopox virus,痘病毒科,Poxviridae,第三类,,no
+83,骆驼痘病毒,Camelpox virus,痘病毒科,Poxviridae,第三类,,no
+84,牛痘病毒,Cowpox virus,痘病毒科,Poxviridae,第三类,,no
+85,传染性软疣病毒,Molluscum contagiosum virus,痘病毒科,Poxviridae,第三类,,no
+86,口疮病毒,Orf virus,痘病毒科,Poxviridae,第三类,,no
+87,假牛痘病毒（挤奶工结节病毒）,Pseudocowpox virus (Milker‘s nodule virus),痘病毒科,Poxviridae,第三类,,no
+88,兔痘病毒,Rabbitpox virus,痘病毒科,Poxviridae,第三类,,no
+89,塔那痘病毒,Tanapox virus,痘病毒科,Poxviridae,第三类,,no
+90,痘苗病毒,Vaccinia virus,痘病毒科,Poxviridae,第三类,,no
+91,多瘤病毒,Polyoma virus,多瘤病毒科,Polyomaviridae,第三类,,no
+92,猴病毒40,Simian virus 40,多瘤病毒科,Polyomaviridae,第三类,,no
+93,偏肺病毒,Metapneumovirus,肺炎病毒科,肺炎病毒科,第三类,,yes
+94,呼吸道合胞病毒,Respiratory syncytial virus,肺炎病毒科,肺炎病毒科,第三类,,yes
+95,风疹病毒,Rubivirus (Rubella),马氏病毒科,Togaviridae,第三类,丙类,yes
+96,麻疹病毒,Measles virus,副黏病毒科,Paramyxoviridae,第三类,乙类,yes
+97,流行性腮腺炎病毒,Mumps virus,副黏病毒科,Paramyxoviridae,第三类,丙类,yes
+98,副流感病毒,Parainfluenza virus,副黏病毒科,Paramyxoviridae,第三类,,yes
+99,仙台病毒（鼠副流感病毒1型）,Sendai virus (murine parainfluenza virus type 1),副黏病毒科,Paramyxoviridae,第三类,,yes
+100,冠状病毒（低致病性）,Coronavirus (low pathogenicity to human),冠状病毒科,Coronaviridae,第三类,,yes
+101,柯尔替病毒,Coltivirus,呼肠孤病毒科,Reoviridae,第三类,,yes
+102,轮状病毒,Rotavirus,呼肠孤病毒科,Reoviridae,第三类,,yes
+103,登革病毒,Dengue virus,黄病毒科,Flaviviridae,第三类,乙类,yes
+104,黄病毒（非高致病性）,Flaviviruses，other known non-highly pathogenic,黄病毒科,Flaviviridae,第三类,,yes
+105,丙型肝炎病毒,Hepatitis C virus,黄病毒科,Flaviviridae,第三类,乙类,yes
+106,昆津病毒,Kunjin virus,黄病毒科,Flaviviridae,第三类,,yes
+107,兰加特病毒,Langat virus,黄病毒科,Flaviviridae,第三类,,yes
+108,索马里兹礁病毒,Saumarez reef virus,黄病毒科,Flaviviridae,第三类,,yes
+109,黄热病毒（疫苗株，17D）,"Yellow fever virus, (vaccine strain, 17D)",黄病毒科,Flaviviridae,第三类,,yes
+110,寨卡病毒,Zika Virus,黄病毒科,Flaviviridae,第三类,,yes
+111,哈扎拉病毒,Hazara virus,内罗病毒科,Nairoviridae,第三类,,yes
+112,人T细胞白血病病毒,Human T- lymphotropic virus (HTLV),逆转录病毒科,Retroviridae,第三类,,no
+113,慢病毒（非高致病性）,Lentivirus (Non highly pathogenic),逆转录病毒科,Retroviridae,第三类,,no
+114,巨细胞病毒,Cytomegalovirus,疱疹病毒科,Herpesviridae,第三类,,no
+115,EB病毒,Epstein-Barr virus,疱疹病毒科,Herpesviridae,第三类,,no
+116,单纯疱疹病毒,Herpes simplex virus,疱疹病毒科,Herpesviridae,第三类,,no
+117,松鼠猴疱疹病毒,Herpesvirus saimiri,疱疹病毒科,Herpesviridae,第三类,,no
+118,人疱疹病毒6型,Human herpes virus-6,疱疹病毒科,Herpesviridae,第三类,,no
+119,人疱疹病毒7型,Human herpes virus-7,疱疹病毒科,Herpesviridae,第三类,,no
+120,人疱疹病毒8型,Human herpes virus-8,疱疹病毒科,Herpesviridae,第三类,,no
+121,水痘－带状疱疹病毒,Varicella-Zoster virus,疱疹病毒科,Herpesviridae,第三类,,no
+122,甲病毒（非高致病性）,"Alphaviruses, other known non-highly pathogenic",披膜病毒科,Togaviridae,第三类,,yes
+123,巴尔马森林病毒,Barmah forest virus,披膜病毒科,Togaviridae,第三类,,yes
+124,比巴鲁病毒,Bebaru virus,披膜病毒科,Togaviridae,第三类,,yes
+125,盖塔病毒,Getah virus,披膜病毒科,Togaviridae,第三类,,yes
+126,阿尼昂-尼昂病毒,O’nyong-nyong virus,披膜病毒科,Togaviridae,第三类,,yes
+127,罗斯河病毒,Ross river virus,披膜病毒科,Togaviridae,第三类,,yes
+128,塞姆利基森林病毒,Semliki forest virus,披膜病毒科,Togaviridae,第三类,,yes
+129,辛德毕斯病毒,Sindbis virus,披膜病毒科,Togaviridae,第三类,,yes
+130,人乳头瘤病毒,Papillomavirus (human),乳头瘤病毒科,Papillomaviridae,第三类,,no
+131,淋巴细胞性脉络丛脑膜炎病毒（亲内脏型）,Lymphocytic choriomeningitis  virus,沙粒病毒科,Arenaviridae,第三类,,yes
+132,乙型肝炎病毒,Hepatitis B virus,嗜肝DNA病毒科,Hepadnaviridae,第三类,乙类,no
+133,丁型肝炎病毒,Hepatitis D virus,卫星病毒,卫星病毒,第三类,,yes
+134,戊型肝炎病毒,Hepatitis E virus,戊型肝炎病毒科,Hepeviridae,第三类,乙类,yes
+135,腺病毒伴随病毒,Adeno-associated virus,细小病毒科,Parvoviridae,第三类,,no
+136,博卡病毒,Bocavirus,细小病毒科,Parvoviridae,第三类,,no
+137,细小病毒B19,Parvovirus B19,细小病毒科,Parvoviridae,第三类,,no
+138,腺病毒,Adenovirus,腺病毒科,Adenoviridae,第三类,,no
+139,心病毒l,Cardiovirus,小RNA病毒科,Picornaviridae,第三类,,yes
+140,柯萨奇病毒,Coxsakie virus,小RNA病毒科,Picornaviridae,第三类,,yes
+141,埃可病毒,ECHO virus,小RNA病毒科,Picornaviridae,第三类,,yes
+142,肠道病毒l,Enterovirus,小RNA病毒科,Picornaviridae,第三类,丙类,yes
+143,肠道病毒A71型,Enterovirus A-71,小RNA病毒科,Picornaviridae,第三类,丙类,yes
+144,甲型肝炎病毒,Hepatitis A virus,小RNA病毒科,Picornaviridae,第三类,乙类,yes
+145,库赛病毒l,Human Cosavirus,小RNA病毒科,Picornaviridae,第三类,,yes
+146,嵴病毒l,Kobuvirus,小RNA病毒科,Picornaviridae,第三类,,yes
+147,副肠孤病毒,Parechovirus,小RNA病毒科,Picornaviridae,第三类,,yes
+148,鼻病毒,Rhinovirus,小RNA病毒科,Picornaviridae,第三类,,yes
+149,星状病毒,Astrovirus,星状病毒科,Astroviridae,第三类,,yes
+150,流行性感冒病毒（非H2N2流感病毒）,Influenza virus,正黏病毒科,Orthomyxoviridae,第三类,丙类,yes
+151,瓜纳图巴病毒,Guaratuba virus,周布尼亚病毒科,Peribunyaviridae,第三类,,yes
+152,拉克罗斯病毒,La Crosse virus,周布尼亚病毒科,Peribunyaviridae,第三类,,yes
+153,塔黑纳病毒,Tahyna orthobunyavirus,周布尼亚病毒科,Peribunyaviridae,第三类,,yes
+154,滕索病毒,Tensaw virus,周布尼亚病毒科,Peribunyaviridae,第三类,,yes
+155,特洛克病毒,Turlock virus,周布尼亚病毒科,Peribunyaviridae,第三类,,yes
+156,金黄地鼠白血病病毒,Hamster leukemia virus,逆转录病毒科,Retroviridae,第四类,,no
+157,小鼠白血病病毒,Mouse leukemia virus,逆转录病毒科,Retroviridae,第四类,,no
+158,小鼠乳腺瘤病毒,Mouse mammary tumor virus,逆转录病毒科,Retroviridae,第四类,,no
+159,大鼠白血病病毒,Rat leukemia virus,逆转录病毒科,Retroviridae,第四类,,no
+160,豚鼠疱疹病毒,Guinea pig herpes virus,疱疹病毒科,Herpesviridae,第四类,,no

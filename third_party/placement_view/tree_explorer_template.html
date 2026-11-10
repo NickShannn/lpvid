@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LucaPhylo Phylogenetic Placement Explorer</title>
+<style>
+/* Hallmark · genre: modern-minimal(technical) · designed-as-app · 2026-10-26
+ * 阅读逻辑: 顶栏=工作流(数据→视图→查找→输出); 侧栏=判读流(概要→图例→query→详情);
+ * 语义色固定: accent=操作/选中, query=放置序列, ok/bad=命中判定; 装饰零冗余 */
+:root {
+  --bg: #f7f9f8; --panel: #ffffff; --panel-2: #f1f4f2;
+  --ink: #1d2a25; --ink-2: #5a6a63; --ink-3: #8a9992;
+  --line: #e2e8e5; --line-2: #cdd8d3;
+  --accent: #237a63; --accent-weak: rgba(35, 122, 99, 0.09); --accent-ink: #ffffff;
+  --query: #d81b60; --querybg: #fdf0f5;
+  --ok: #1b7f4d; --bad: #c0392b;
+  --branch: #7d8a92; --branch-dim: #b9c2c8;
+  --radius-s: 6px; --radius-m: 9px; --radius-l: 12px;
+  --shadow-1: 0 1px 2px rgba(29, 42, 37, 0.05);
+  --shadow-2: 0 8px 28px rgba(29, 42, 37, 0.12);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-s: 130ms; --dur-m: 220ms;
+}
+/* 兼容旧引用 */
+:root { --ink2: var(--ink-2); }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#121815; --panel:#1a221e; --panel-2:#212b26; --ink:#e2eae6; --ink-2:#9db0a6; --ink-3:#6c7d75;
+          --line:#2a352f; --line-2:#3a463f;
+          --accent:#3aa184; --accent-weak:rgba(58,161,132,0.14); --accent-ink:#0d1512;
+          --querybg:#38222e; --branch:#6e7d86; --branch-dim:#3d4a52;
+          --shadow-1:0 1px 2px rgba(0,0,0,.3); --shadow-2:0 8px 28px rgba(0,0,0,.45); }
+}
+* { box-sizing: border-box; }
+html, body { margin:0; height:100%; }
+body {
+  font: 14px/1.45 "Segoe UI", system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg); color: var(--ink); display:flex; flex-direction:column;
+}
+/* ---------- 顶栏(工作流分组: 数据→视图→查找→输出) ---------- */
+#topbar {
+  display:flex; align-items:stretch; gap:0; flex-wrap:wrap; padding:6px 10px;
+  background:var(--panel); border-bottom:1px solid var(--line-2); z-index:5;
+}
+.tb-brand {
+  display:flex; align-items:center; font-weight:650; color:var(--accent);
+  font-size:14.5px; padding:0 14px 0 4px; white-space:nowrap; letter-spacing:.01em;
+}
+.tb-group {
+  display:flex; flex-direction:column; align-items:flex-start; gap:4px;
+  padding:6px 14px;
+}
+.tb-group + .tb-group { border-left:1px solid var(--line); }
+.tb-group::before {
+  content:attr(data-group); font-size:10px; letter-spacing:.16em;
+  color:var(--ink-3); font-weight:600; line-height:1; padding-left:1px;
+}
+.tb-ctrls { display:flex; align-items:center; gap:7px; flex-wrap:wrap; min-height:28px; }
+.tb-grow { flex:1 1 auto; }
+.tb-grow .tb-ctrls { width:100%; }
+#topbar select, #topbar input[type=text], #topbar button {
+  font:inherit; font-size:13px; color:var(--ink); background:var(--panel);
+  border:1px solid var(--line-2); border-radius:var(--radius-s);
+  padding:0 10px; outline:none; height:28px; box-sizing:border-box;
+  transition: border-color var(--dur-s) var(--ease-out), color var(--dur-s) var(--ease-out),
+              background var(--dur-s) var(--ease-out);
+}
+#topbar button { cursor:pointer; box-shadow:var(--shadow-1); }
+#topbar button:hover { border-color:var(--accent); color:var(--accent); }
+#topbar button:focus-visible { outline:2px solid var(--accent); outline-offset:1px; }
+#topbar button:active { transform:translateY(1px); box-shadow:none; }
+#topbar button.on { background:var(--accent); border-color:var(--accent); color:var(--accent-ink); }
+#topbar button.ghost { box-shadow:none; background:transparent; }
+#topbar label.tgl { display:flex; align-items:center; gap:5px; color:var(--ink-2); cursor:pointer;
+  border:1px solid var(--line-2); border-radius:var(--radius-s); padding:0 9px; user-select:none;
+  background:var(--panel); height:28px; box-sizing:border-box;
+  transition: border-color var(--dur-s) var(--ease-out); }
+#topbar label.tgl:hover { border-color:var(--accent); }
+#topbar label.tgl input { accent-color:var(--accent); }
+#topbar .sep { width:1px; height:22px; background:var(--line); }
+/* truthWrap: 内联 display:none(真实场景 query=新序列, 前端不显示真值对照) */
+#searchbox { position:relative; }
+#searchhits {
+  position:absolute; top:110%; left:0; min-width:280px; max-height:260px; overflow:auto;
+  background:var(--panel); border:1px solid var(--line); border-radius:8px; display:none;
+  box-shadow:0 6px 24px rgba(0,0,0,.14); z-index:20;
+}
+#searchhits .hit { padding:5px 10px; cursor:pointer; font-size:12.5px; white-space:nowrap;
+  overflow:hidden; text-overflow:ellipsis; }
+#searchhits .hit:hover { background:var(--querybg); }
+#searchhits .hit em { color:var(--query); font-style:normal; font-weight:650; }
+/* ---------- 主区 ---------- */
+#main { flex:1; display:flex; min-height:0; }
+#stage { flex:1; position:relative; overflow:hidden; }
+svg { display:block; width:100%; height:100%; cursor:default; user-select:none; }
+svg.panning { cursor:move; }
+/* ---------- 导航按钮组 ---------- */
+#navpad {
+  position:absolute; right:14px; bottom:14px; z-index:8; display:flex; flex-direction:column;
+  align-items:center; gap:3px; background:var(--panel); border:1px solid var(--line-2);
+  border-radius:var(--radius-l); padding:5px 7px 7px; box-shadow:var(--shadow-2);
+}
+#navpad .pad-row { display:flex; gap:3px; }
+#navpad .pad-handle {
+  cursor:grab; color:var(--ink2); font-size:11px; letter-spacing:2px; text-align:center;
+  padding:0 0 4px; user-select:none; border-radius:4px;
+}
+#navpad .pad-handle:hover { color:var(--accent); }
+#navpad.dragging, #navpad.dragging .pad-handle { cursor:grabbing; }
+#navpad .pad-sep { width:70%; height:1px; background:var(--line); margin:3px 0; }
+#navpad button {
+  width:32px; height:28px; font:14px/1 inherit; color:var(--ink-2); background:var(--panel);
+  border:1px solid var(--line-2); border-radius:var(--radius-s); cursor:pointer; padding:0;
+  transition: border-color var(--dur-s) var(--ease-out), color var(--dur-s) var(--ease-out);
+}
+#navpad button:hover { border-color:var(--accent); color:var(--accent); }
+#navpad button:focus-visible { outline:2px solid var(--accent); outline-offset:1px; }
+#navpad button:active { transform:translateY(1px); }
+#navpad button[data-act="center"] { font-size:14px; }
+/* ---------- 侧栏 ---------- */
+#side {
+  width:318px; flex:none; background:var(--panel); border-left:1px solid var(--line);
+  overflow-y:auto; padding:12px 14px;
+}
+#side h3 {
+  margin:18px 0 7px; font-size:12px; color:var(--ink); font-weight:650;
+  padding-left:8px; border-left:3px solid var(--accent); line-height:1.2;
+}
+#side h3:first-child { margin-top:2px; }
+.card { border:1px solid var(--line); border-radius:var(--radius-m); padding:10px 12px; margin-bottom:8px;
+  background:var(--panel); box-shadow:var(--shadow-1); font-size:13px; }
+.kv { display:flex; justify-content:space-between; gap:8px; padding:1.5px 0; }
+.kv b { font-weight:600; }
+.kv .v { color:var(--ink2); text-align:right; }
+.metric { display:inline-block; margin:2px 4px 2px 0; padding:2px 8px; border-radius:20px;
+  background:var(--panel); border:1px solid var(--line); font-size:12px; }
+.metric b { color:var(--accent); }
+#qlist { display:flex; flex-direction:column; gap:3px; max-height:34vh; overflow-y:auto; }
+.notice { border:1px solid #e5c56a; background:#fff8df; color:#6b4e00; border-radius:8px; padding:9px 11px; margin:0 0 10px; font-size:12px; line-height:1.5; }
+.qrow { display:flex; align-items:center; gap:7px; padding:4px 8px; border-radius:var(--radius-s);
+  border:1px solid transparent; cursor:pointer; font-size:12.5px; }
+.qrow:hover { background:var(--querybg); }
+.qrow.sel { border-color:var(--query); background:var(--querybg); }
+.qrow .qid { flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.qrow .conf { width:34px; text-align:right; color:var(--ink2); font-variant-numeric:tabular-nums; }
+.qrow .tv { width:16px; text-align:center; font-weight:700; }
+.qrow .tv.ok { color:var(--ok); } .qrow .tv.bad { color:var(--bad); }
+table.nn { width:100%; border-collapse:collapse; font-size:12px; }
+table.nn th { text-align:left; color:var(--ink2); font-weight:550; border-bottom:1px solid var(--line);
+  padding:2px 3px; }
+table.nn td { padding:2.5px 3px; border-bottom:1px solid var(--line); max-width:150px;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+table.nn td.num { text-align:right; font-variant-numeric:tabular-nums; }
+table.nn td.hit { color:var(--ok); font-weight:700; }
+.legend { display:flex; flex-direction:column; gap:4px; font-size:12.5px; }
+.legend .li { display:flex; align-items:center; gap:7px; }
+.legend .sw { width:13px; height:13px; border-radius:3.5px; flex:none; }
+.legend .li span.n { margin-left:auto; color:var(--ink2); }
+/* ---------- tooltip / 状态栏 ---------- */
+#tipbox {
+  position:fixed; pointer-events:none; display:none; z-index:50; max-width:400px;
+  background:var(--panel); color:var(--ink); border:1px solid var(--line-2); border-radius:var(--radius-m);
+  padding:8px 11px; font-size:12.5px; box-shadow:var(--shadow-2);
+}
+#tipbox .t-title { font-weight:650; margin-bottom:3px; word-break:break-all; padding-right:14px; }
+#tipbox .t-row { display:flex; gap:8px; }
+#tipbox .t-row .k { color:var(--ink2); flex:none; }
+#tipbox table.nn { margin-top:4px; }
+#tipbox .pill { display:inline-block; padding:0 7px; border-radius:12px; font-size:11.5px;
+  border:1px solid var(--line); margin:1px 2px 1px 0; }
+/* ---------- 点击操作卡(两段式: 选中 → 选择操作) ---------- */
+#actCard {
+  position:fixed; display:none; z-index:60; min-width:220px; max-width:360px;
+  background:var(--panel); color:var(--ink); border:1px solid var(--line-2); border-radius:var(--radius-m);
+  padding:10px 12px; font-size:12.5px; box-shadow:var(--shadow-2);
+}
+#actCard .ac-title { font-weight:650; word-break:break-all; margin-bottom:2px; }
+#actCard .ac-sub { color:var(--ink2); font-size:11.5px; margin-bottom:7px; }
+#actCard .ac-btns { display:flex; flex-wrap:wrap; gap:6px; }
+#actCard button {
+  font:inherit; font-size:12px; color:var(--ink); background:var(--bg);
+  border:1px solid var(--line); border-radius:7px; padding:4px 10px; cursor:pointer;
+}
+#actCard button:hover { border-color:var(--accent); color:var(--accent); }
+#statusbar {
+  display:flex; gap:16px; padding:4px 14px; font-size:11.5px; color:var(--ink-2);
+  background:var(--panel-2); border-top:1px solid var(--line-2);
+  font-variant-numeric:tabular-nums;
+}
+#statusbar b { color:var(--ink); font-weight:600; }
+/* ---------- SVG 内元素 ---------- */
+.branch { fill:none; stroke-linecap:round; vector-effect:non-scaling-stroke; }  /* 线宽恒定屏幕像素(地图式) */
+.branch.hl { stroke: #5a6a63 !important; }             /* 高亮=灰色(非纯黑); 宽度 JS 恒定屏幕补偿 */
+.tip-label.hl { font-weight:700; fill: var(--accent); }
+/* 聚焦弱化: hover 时高亮路径全亮, 其余枝/标签/标记降不透明度(focus+context) */
+#viewport.focusing :is(.branch, .label-g, .mark-g):not(.hl):not(.keep) {
+  opacity: .28; transition: opacity .18s ease;
+}
+#viewport :is(.branch, .label-g, .mark-g) { transition: opacity .18s ease; }
+.branch.hl, .tip-label.hl { filter: drop-shadow(0 0 2.2px rgba(0,0,0,.55)); }
+.branch.query { stroke-width:2.4px; }
+.branch.query.weak { stroke-dasharray:5 3; }
+.node-dot { stroke:var(--panel); stroke-width:1; }
+.query-mark { stroke:#fff; stroke-width:1.2; }
+.tip-label {
+  font-family: var(--lbl-family, ui-monospace, Menlo, Consolas, monospace);
+  font-size: var(--lbl-size, 11.5px);
+  font-weight: var(--lbl-weight, 400);
+  font-style: var(--lbl-style, normal);
+  fill:var(--ink); paint-order:stroke; stroke:var(--bg); stroke-width:2.6px;
+  transition: opacity .22s ease; }
+.tip-label.q { font-weight:700; fill:var(--query); }
+.rank-label { font-family: system-ui, sans-serif; font-size: 10.5px; font-weight: 600; fill: var(--ink); }
+.rank-label-box { cursor: default; }
+.tip-label.marked { font-weight:700; }   /* 标记: 颜色由 inline(标记色系) */
+.tip-label.dim { fill:var(--ink2); opacity:.75; }
+.tip-label.search-hit { fill:var(--query); }
+.strip { rx:1.5; }
+.strip-label { font:10px sans-serif; fill:var(--ink2); }
+.collapse-tri { fill:var(--branch-dim); fill-opacity:.55; cursor:pointer; }
+.hot-c { cursor:pointer; }
+.clade-tri { cursor:pointer; }
+.collapse-tri:hover { fill:var(--accent); fill-opacity:.85; }
+.collapse-n { font:10.5px sans-serif; fill:var(--ink2); pointer-events:none; }
+.axis-line { stroke:var(--line); stroke-width:1; }
+.axis-t { font:10.5px sans-serif; fill:var(--ink2); }
+.support-dot { opacity:.9; }
+#exportDlg { position:fixed; inset:0; background:rgba(0,0,0,.35); display:none; align-items:center; justify-content:center; z-index:100; }
+#exportDlg .dlg-card { background:var(--panel); border-radius:12px; padding:20px 22px; width:min(380px,90vw); box-shadow:var(--shadow-2); display:flex; flex-direction:column; gap:11px; }
+#exportDlg .dlg-card h3 { margin:0; font-size:15px; }
+#exportDlg label { display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--ink-2); }
+#exportDlg select, #exportDlg input { padding:7px 9px; border:1px solid var(--line-2); border-radius:7px; font:inherit; font-size:13px; background:var(--panel); color:var(--ink); }
+#exportDlg .dlg-btns { display:flex; justify-content:flex-end; gap:8px; margin-top:4px; }
+#exportDlg .dlg-btns button { padding:7px 16px; border-radius:8px; border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer; font:inherit; }
+#exportDlg .dlg-btns button.ghost { background:transparent; color:var(--ink); border-color:var(--line-2); }
+</style>
+</head>
+<body>
+<div id="topbar">
+  <div class="tb-brand">LucaPhylo Phylogenetic Placement Explorer</div>
+  <div class="tb-group" data-group="数据">
+    <div class="tb-ctrls">
+      <select id="bundleSel" title="超群"></select>
+    </div>
+  </div>
+  <div class="tb-group tb-grow" data-group="视图">
+    <div class="tb-ctrls">
+    <label class="tgl" title="着色字段">着色
+      <select id="colorMode">
+        <option value="placement">放置状态</option>
+        <option value="source">序列来源</option>
+        <option value="group">类群标签</option>
+      </select>
+    </label>
+    <label class="tgl"><input type="checkbox" id="focusChk"/>邻域聚焦</label>
+    <select id="padSel" title="聚焦窗口半径(邻居数)">
+      <option value="5">±5</option><option value="10" selected>±10</option>
+      <option value="20">±20</option><option value="40">±40</option>
+    </select>
+    <label class="tgl" id="truthWrap" style="display:none" title="(已停用)真值对照">
+      <input type="checkbox" id="truthChk" checked/>真值对照</label>
+    <label class="tgl"><input type="checkbox" id="stripChk" checked/>元数据条带</label>
+    <button id="midrootBtn" title="切换中值根(midpoint rooting): 根置于树直径中点">中值根</button>
+    </div>
+  </div>
+  <div class="tb-group" data-group="查找">
+    <div class="tb-ctrls">
+    <div id="searchbox">
+      <input type="text" id="searchIn" placeholder="搜索 tip / query…" size="16"/>
+      <div id="searchhits"></div>
+    </div>
+    </div>
+  </div>
+  <div class="tb-group" data-group="输出">
+    <div class="tb-ctrls">
+    <button id="exportSvg" class="ghost">SVG</button>
+    <button id="exportPng" class="ghost">PNG</button>
+    <button id="exportPdf" class="ghost">PDF</button>
+    <button id="resetView" title="双击画布同效">重置视图</button>
+    </div>
+  </div>
+</div>
+<div id="main">
+  <div id="stage">
+    <svg id="treeSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div id="navpad" title="导航: 平移/复位/缩放(手柄可拖动)">
+      <div class="pad-handle" title="拖动移动导航组">⋮⋮</div>
+      <button data-act="up" title="上移">↑</button>
+      <div class="pad-row">
+        <button data-act="left" title="左移">←</button>
+        <button data-act="center" title="复位视图(双击画布同效)">⌖</button>
+        <button data-act="right" title="右移">→</button>
+      </div>
+      <button data-act="down" title="下移">↓</button>
+      <div class="pad-sep"></div>
+      <button data-act="zin" title="放大(双轴)">＋</button>
+      <button data-act="zout" title="缩小(双轴)">－</button>
+      <button data-act="xin" title="横向拉伸(枝长方向)">↔＋</button>
+      <button data-act="xout" title="横向压缩">↔－</button>
+    </div>
+  </div>
+  <div id="side">
+    <div id="globalNotice" class="notice" style="display:none"></div>
+    <h3>Query 放置 <span id="qcount" style="color:var(--query)"></span></h3>
+    <div id="qlist"></div>
+    <h3>选中详情</h3><div class="card" id="detailCard" style="display:none"></div>
+    <h3>概要</h3><div class="card" id="sumCard"></div>
+    <h3>显示设置</h3>
+    <div class="card" id="lblOptsCard">
+      <div class="kv"><b>标签字号</b><span class="v" id="lblSizeVal">11.5</span></div>
+      <input type="range" id="lblSize" min="9" max="18" step="0.5" value="11.5" style="width:100%"/>
+      <div class="kv" style="margin-top:6px"><b>字体</b>
+        <select id="lblFamily" style="font:inherit;font-size:12px">
+          <option value="mono">等宽 mono</option>
+          <option value="ui">界面 sans</option>
+          <option value="serif">衬线 serif</option>
+        </select></div>
+      <div style="display:flex;gap:8px;margin-top:7px;align-items:center">
+        <label style="display:flex;gap:4px;align-items:center;font-size:12px">
+          <input type="checkbox" id="lblBold"/>粗体</label>
+        <label style="display:flex;gap:4px;align-items:center;font-size:12px">
+          <input type="checkbox" id="lblItalic"/>斜体</label>
+      </div>
+      <label style="display:flex;gap:5px;align-items:center;margin-top:7px;font-size:12px;color:var(--ink-2)">
+        <input type="checkbox" id="lblScale"/>标签随缩放(字号跟随缩放)</label>
+    </div>
+    <h3>图例</h3><div class="card"><div class="legend" id="legend"></div></div>
+  </div>
+</div>
+<div id="tipbox"></div>
+<div id="exportDlg">
+  <div class="dlg-card">
+    <h3>导出</h3>
+    <label>格式
+      <select id="expFormat">
+        <option value="svg">SVG（矢量）</option>
+        <option value="png">PNG（位图）</option>
+        <option value="pdf">PDF（矢量）</option>
+        <option value="nwk">Newick 树文件</option>
+        <option value="tsv">放置注释表（TSV）</option>
+      </select>
+    </label>
+    <label>范围
+      <select id="expRange"><option value="full">完整树</option><option value="view">当前视图</option></select>
+    </label>
+    <label>PNG 分辨率
+      <select id="expScale"><option value="1">1×</option><option value="2" selected>2×</option><option value="3">3×</option><option value="4">4×</option></select>
+    </label>
+    <label>文件名 <input id="expName" type="text"/></label>
+    <div class="dlg-btns"><button id="expCancel" class="ghost">取消</button><button id="expConfirm">导出</button></div>
+  </div>
+</div>
+<div id="actCard">
+  <div class="ac-title"></div>
+  <div class="ac-sub"></div>
+  <div class="ac-btns"></div>
+</div>
+<div id="statusbar"></div>
+
+<script>
+/*__PHYLO_CORE__*/
+</script>
+<script id="backbone-bundles" type="application/json">
+/*__BACKBONE_BUNDLES__*/
+</script>
+<script id="fitch-bundles" type="application/json">
+/*__FITCH_BUNDLES__*/
+</script>
+<script id="virid-bundles" type="application/json">
+/*__VIRID_BUNDLES__*/
+</script>
+<script id="report-meta" type="application/json">
+/*__REPORT_META__*/
+</script>
+<script>
+/*__JSPDF__*/
+</script>
+<script>
+/*__SVG2PDF__*/
+</script>
+<script>
+"use strict";
+const PC = window.PhyloCore;
+const $ = s => document.querySelector(s);
+const SVG_NS = "http://www.w3.org/2000/svg";
+const OI = ["#0072B2","#E69F00","#009E73","#CC79A7","#56B4E9","#F0E442","#D55E00","#8c564b","#7f7f7f","#b07aa1","#17becf","#e377c2"];
+const C = {
+  query: getCss("--query"), ok: getCss("--ok"), bad: getCss("--bad"),
+  branch: getCss("--branch"), branchDim: getCss("--branch-dim"), accent: getCss("--accent"), ink2: getCss("--ink2"),
+};
+function getCss(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim() || "#888"; }
+const SOURCE_LABEL = { refseq:"RefSeq 参考", genbank:"GenBank 蛋白", group:"类群标签", other:"其他" };
+const SOURCE_COLOR = { refseq:OI[0], genbank:OI[1], group:OI[2], other:"#9aa5a0" };
+
+/* ================= 状态 ================= */
+let bundle = null, tree = null, layout = null, placed = [];
+let collapsed = [];            // focus 模式下的折叠段 {y0,y1,x0,x1,n}
+let colorMode = "placement";
+let taxRank = "";                   // 骨架树模式: 当前分类等级(bundle.ranks 之一)
+let rootMode = "original";     // original | midpoint(中值根展示)
+let collapsedManual = new Set();   // 本轮 render 的折叠节点对象(每轮重建匹配)
+let collapsedKeys = new Set();     // 折叠状态签名(子树 tip 列表), 跨 render/缩放持久
+let rotatedKeys = new Set();        // 已旋转节点(签名), 孩子顺序翻转, 再点恢复
+let markedClades = new Map();      // 标记 clade: 签名→色号(0-3), 跨 render 持久
+let markedTips = new Map();        // 标记 tip: tip名→色号(0-3)
+let markedCladeNodes = new Map();  // 本轮对象: 节点→色号(render 时签名匹配)
+const MARK_COLORS = ["#e8b93e", "#5b9bd5", "#b58ad1", "#e08a5a"];
+/* 标签文字属性(统一设置, localStorage 持久); scale=true 时字号随缩放(关闭 mark-inv 补偿) */
+const LBL_FAMILIES = {
+  mono: 'ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace',
+  ui: 'system-ui, "Segoe UI", "PingFang SC", sans-serif',
+  serif: 'Georgia, "Times New Roman", "Songti SC", serif',
+};
+let labelOpts = { size: 11.5, family: "mono", bold: false, italic: false, scale: false };
+try { Object.assign(labelOpts, JSON.parse(localStorage.getItem("explorer.lblOpts") || "{}")); } catch (e) {}
+function applyLabelOpts() {
+  const r = document.documentElement.style;
+  r.setProperty("--lbl-size", labelOpts.size + "px");
+  r.setProperty("--lbl-family", LBL_FAMILIES[labelOpts.family] || LBL_FAMILIES.mono);
+  r.setProperty("--lbl-weight", labelOpts.bold ? "700" : "400");
+  r.setProperty("--lbl-style", labelOpts.italic ? "italic" : "normal");
+  try { localStorage.setItem("explorer.lblOpts", JSON.stringify(labelOpts)); } catch (e) {}
+}
+const MARK_TEXT = ["#8a6a10", "#2a5a8a", "#6a4a8a", "#8a4a20"];
+const ITALIC_RANKS = new Set(["Family", "Subfamily", "Genus", "Species"]);   // 拉丁化等级: 值名斜体
+/* 宿主关联 icon(Tabler Icons outline, MIT): 标签左侧三槽, 有标记才画 */
+const HOST_ICONS = [
+  { key: "human", label: "人类", color: "#c0392b", paths: [
+    "M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0",
+    "M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" ] },
+  { key: "vertebrate", label: "脊椎动物", color: "#2a5a8a", vb: 512, fillMode: true, paths: [
+    "M362.005 149.115s-7 55.77-79 83.36v-24.69c-2.76-1-4.63 7.88-7.26 9.15h-39.49c-2.63-1.27-4.5-10.11-7.26-9.15v24.69c-72-27.59-79-83.36-79-83.36c-60.71 67.68-121.41 80-121.41 80c102.53-16.11 101.36 44.89 101.36 44.89c69.71-11.91 65.64 36.31 65.64 36.31c60.63-6.9 60.41 52.57 60.41 52.57s-.22-59.47 60.41-52.57c0 0-4.07-48.22 65.64-36.31c0 0-1.16-61 101.37-44.88c.02.01-60.69-12.33-121.41-80.01" ] },
+  { key: "plant", label: "植物", color: "#1b7f4d", paths: [
+    "M5 21c.5 -4.5 2.5 -8 7 -10",
+    "M9 18c6.218 0 10.5 -3.288 11 -12v-2h-4.014c-9 0 -11.986 4 -12 9c0 1 0 3 2 5h3l.014 0" ] },
+];
+let hasSupport = false;        // 骨架树是否带 branch support(决定图例与 support 点)
+let selected = null;           // 选中 query 节点
+let searchHits = new Set();
+let view = { kx:1, ky:1, tx:0, ty:0 };  // viewport transform(x/y 分离缩放, 适配高瘦树)
+let stage = { w:0, h:0 };
+let labelMax = 0;                    // 最长 tip 标签宽(px, 近似)
+let worldW = 1, worldH = 1;          // render() 后的世界尺寸
+const PAD_L = 14, TIP_ROW = 17, LABEL_X = 10, STRIP_W = 7, STRIP_GAP = 3;
+
+/* ================= 数据接入 ================= */
+function loadBundle(b) {
+  if (!b || !b.backbone_newick) { console.warn("loadBundle: 无效数据"); return; }
+  bundle = b;
+  selected = null; searchHits.clear(); $("#searchIn").value = "";
+  syncModeUI();
+  view = { kx: 1, ky: 1, tx: 0, ty: 0 };
+  render();
+  fitView();                    // 初始整树可见(高度自适应)
+}
+function cladeSign(n) {
+  const names = [];
+  (function w(m) { if (!m.children.length && m.name) names.push(m.name); m.children.forEach(w); })(n);
+  return names.sort().join("\x01");
+}
+function buildFromBundle(b) {
+  tree = PC.parseNewick(b.backbone_newick);
+  if (rootMode === "midpoint") tree = PC.midpointRoot(tree);
+  placed = [];
+  if (b.placements && b.placements.length) {
+    const ins = PC.insertQueries(tree, b.placements);
+    placed = ins.inserted;
+    if (ins.conflicts.length) console.warn("nn1 冲突:", ins.conflicts);
+  }
+  // 折叠状态恢复: 签名匹配本轮节点对象(render 每轮重建树, 对象身份不可跨轮)
+  collapsedManual = new Set();
+  if (collapsedKeys.size) {
+    for (const n of PC.allNodes(tree)) {
+      if (n.children.length && n !== tree && collapsedKeys.has(cladeSign(n))) collapsedManual.add(n);
+    }
+  }
+  markedCladeNodes = new Map();
+  const rotMatches = [];
+  for (const n of PC.allNodes(tree)) {
+    if (!n.children.length || n === tree) continue;
+    if (n.children.length >= 2 && rotatedKeys.has(cladeSign(n))) rotMatches.push(n);
+    const ci = markedClades.get(cladeSign(n));
+    if (ci != null) markedCladeNodes.set(n, ci);
+  }
+  // 同签名嵌套时只旋转最深层(外层包装 reverse 无效果)
+  for (const n of rotMatches) {
+    if (!rotMatches.some(m => m !== n && (function d(x){ for (const c of x.children) { if (c === n || d(c)) return true; } return false; })(m)))
+      n.children.reverse();
+  }
+  layout = PC.layoutPhylogram(tree, collapsedManual);
+  // 等级值传播: 子树全部 tip 同值→节点携带该值(整枝着色); 混合→null
+  if (bundle.ranks && taxRank) {
+    (function prop(n) {
+      if (!n.children.length) { n._taxVal = (taxOf(n.name) || {})[taxRank] || null; return; }
+      n.children.forEach(prop);
+      const vs = new Set(n.children.map(c => c._taxVal));
+      n._taxVal = vs.size === 1 && vs.has([...vs][0]) ? [...vs][0] : null;
+    })(tree);
+  }
+  hasSupport = PC.allNodes(tree).some(n => n.support != null && n.children.length);
+  // 预计算每个节点的元数据与子树首叶颜色(枝/clade 整体着色用)
+  (function paint(n) {
+    if (!n.children.length) { n.meta2 = PC.parseTipMeta(n.name); return n; }
+    n.children.forEach(paint);
+    n.meta2 = n.children[n.children.length - 1].meta2;
+  })(tree);
+  computePalettes();
+  computeFocus();
+}
+
+/* 骨架树模式: 阶元调色(按 value_counts 键序, 跨重绘稳定) */
+let palTax = new Map();
+function taxPalette() {
+  palTax = new Map();
+  const vc = bundle.value_counts && bundle.value_counts[taxRank];
+  if (!vc) return;
+  const keys = Object.keys(vc).sort((a, b) => vc[b] - vc[a] || a.localeCompare(b));
+  keys.forEach((k, i) => palTax.set(k, OI[i % OI.length]));
+}
+function taxOf(name) { return bundle.taxonomy && bundle.taxonomy[name]; }
+
+/* ---- 分类调色板(动态分配) ---- */
+let palGroup = new Map(), countBy = null;
+function computePalettes() {
+  if (bundle.ranks) taxPalette();
+  palGroup = new Map();
+  countBy = { source: {}, group: {} };
+  for (const t of layout.tips) {
+    const m = PC.parseTipMeta(t.name);
+    if (m.group_tag && !palGroup.has(m.group_tag)) palGroup.set(m.group_tag, OI[palGroup.size % OI.length]);
+    countBy.source[m.source] = (countBy.source[m.source] || 0) + 1;
+    if (m.group_tag) countBy.group[m.group_tag] = (countBy.group[m.group_tag] || 0) + 1;
+  }
+}
+
+/* ---- 邻域聚焦: 计算 keep 窗口与折叠段 ---- */
+function computeFocus() {
+  collapsed = [];
+  if (!$("#focusChk").checked) return;
+  const pad = +$("#padSel").value, n = layout.nTips;
+  const keep = new Array(n).fill(false);
+  for (const q of placed) {
+    const anchorYs = [q.y];
+    for (const nn of q.placement.neighbors || []) {
+      // 邻居可能是 backbone tip 或(同锚)其他 query —— 用当前树上的节点 y
+      const idx = layout.tips.find(t => t.name === nn[0]);
+      if (idx) anchorYs.push(idx.y);
+    }
+    for (const y of anchorYs)
+      for (let j = Math.max(0, y - pad); j <= Math.min(n - 1, y + pad); j++) keep[j] = true;
+  }
+  // 连续未保留段 → 折叠(首尾各留 1 个上下文 tip, 不折叠单 tip)
+  // 每段计算 LCA: 三角尖锚在祖先分叉点上, 而非悬浮.
+  const range = subtreeRange(tree);
+  let s = -1;
+  for (let i = 0; i <= n; i++) {
+    const out = i === n || keep[i];
+    if (!out && s < 0) s = i;
+    if (out && s >= 0) {
+      let e = i - 1;
+      if (e - s + 1 >= 3) {
+        let x0 = 1e9, x1 = 0;
+        for (let j = s; j <= e; j++) { x0 = Math.min(x0, layout.tips[j].depth); x1 = Math.max(x1, layout.tips[j].depth); }
+        // LCA = 段首 tip 祖先链上, 子树 y 范围覆盖整段的最深节点
+        let lca = layout.tips[s];
+        while (lca.up) {
+          const r = range.get(lca.up);
+          if (r[0] <= s && r[1] >= e) lca = lca.up; else break;
+        }
+        collapsed.push({ y0: s - 1, y1: e + 1, yIn0: s, yIn1: e, x0, x1, n: e - s + 1, lca });
+      }
+      s = -1;
+    }
+  }
+}
+/* 每节点子树 y 范围 [min,max](后序遍历) */
+function subtreeRange(root) {
+  const range = new Map();
+  (function walk(n) {
+    if (!n.children.length) { range.set(n, [n.y, n.y]); return; }
+    let lo = 1e9, hi = -1;
+    n.children.forEach(walk);
+    for (const c of n.children) { lo = Math.min(lo, range.get(c)[0]); hi = Math.max(hi, range.get(c)[1]); }
+    range.set(n, [lo, hi]);
+  })(root);
+  return range;
+}
+function inCollapsed(y) { return collapsed.some(c => y >= c.yIn0 && y <= c.yIn1); }
+
+/* ================= 着色 ================= */
+function nodeColor(n, m) {
+  if (n.isQuery) return C.query;
+  if (bundle.ranks && taxRank) return (m && m.taxVal && palTax.get(m.taxVal)) || "#9aa5a0";
+  if (colorMode === "placement") return C.branch;
+  if (colorMode === "source") return SOURCE_COLOR[m.source] || "#9aa5a0";
+  if (colorMode === "group") return (m.group_tag && palGroup.get(m.group_tag)) || "#9aa5a0";
+  return C.branch;
+}
+
+/* ================= SVG 渲染 ================= */
+function svgEl(tag, attrs, parent) {
+  const el = document.createElementNS(SVG_NS, tag);
+  for (const k in attrs || {}) el.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(el);
+  return el;
+}
+function render() {
+  if (!bundle) return;
+  hideTip();
+  buildFromBundle(bundle);
+  const svg = $("#treeSvg");
+  svg.innerHTML = "";
+  const n = layout.nTips, maxD = layout.maxWidth;
+  labelMax = Math.max(...layout.tips.map(t => t.name.length)) * 6.6 * (labelOpts.size / 11.5) *
+    (labelOpts.family === "mono" ? 1 : 1.08);
+  worldH = n * TIP_ROW + 60;
+  stage = { w: $("#stage").clientWidth, h: $("#stage").clientHeight };
+  svg.setAttribute("viewBox", `0 0 ${stage.w} ${stage.h}`);
+  const root = svgEl("g", { id: "viewport" }, svg);
+  const gx = PAD_L, gy = 20;
+  const sx = (t => t), sy = (t => t * TIP_ROW);     // 逻辑 → 布局像素(y 均匀行)
+
+  // 尺度: x 用固定像素映射(1 深度单位 = pxPerD), 保证树形不扁
+  const treeAreaW = Math.max(320, stage.w * 0.55);
+  const pxPerD = treeAreaW / (maxD || 1);
+  const X = t => gx + t * pxPerD, Y = t => gy + t * TIP_ROW;
+
+  // 比例尺
+  drawScale(svgEl("g", {}, root), X, maxD, worldH);
+
+  // ---- 标记底色带(最底层, 枝线之上文字之下) ----
+  const gBranch = svgEl("g", {}, root);
+  const gBand = svgEl("g", {}, root);
+  root.insertBefore(gBand, gBranch);
+  const gMark = svgEl("g", {}, root);
+  const gLabel = svgEl("g", {}, root);
+  const gStrip = svgEl("g", {}, root);
+  const drawnTips = new Set();
+  // 等级聚集阴影: 按分类值做单系分解(最大单系块), 每块画贴合树轮廓的多边形
+  // (左缘=块 LCA 竖线, 右缘=沿各叶 depth 的锯齿边) —— 精确对应 clade, ≥3 tips 才画
+  if (bundle.ranks && taxRank) {
+    // 修复①: query 叶不计入判定(插入 query 不打断宿主 clade 单系性)
+    // 修复②: 只画最大块(父成块则子不画, 避免同色嵌套叠加)
+    const val = n => (n.isQuery || !n.name) ? null : ((taxOf(n.name) || {})[taxRank] || null);
+    (function mono(n) {                            // 第一遍: 标记 _monoV(非query叶全同值→值)
+      if (!n.children.length) { n._monoV = val(n); return; }
+      n.children.forEach(mono);
+      const cv = new Set(n.children
+        .filter(c => !(c.isQuery && !c.children.length)).map(c => c._monoV));
+      n._monoV = (cv.size === 1 && !cv.has(null)) ? [...cv][0] : null;
+    })(tree);
+    const blocks = new Map();
+    (function collect(n) {                         // 第二遍: 最大块登记
+      const maximal = n._monoV != null && (n.up == null || n.up._monoV !== n._monoV);
+      if (maximal) (blocks.get(n._monoV) || blocks.set(n._monoV, []).get(n._monoV)).push(n);
+      n.children.forEach(collect);
+    })(tree);
+    // 画多边形
+    for (const [v, bl] of blocks) {
+      for (const node of bl) {
+        const leaves = [];
+        (function w(m) { if (!m.children.length && !m.isQuery && m.name) leaves.push(m); m.children.forEach(w); })(node);
+        if (leaves.length < 3) continue;
+        leaves.sort((a, b) => a.y - b.y);
+        const pts = [[node.depth, leaves[0].y]]
+          .concat(leaves.map(l => [l.depth, l.y]))
+          .concat([[node.depth, leaves[leaves.length - 1].y]]);
+        const d = pts.map(pt => `${X(pt[0]).toFixed(1)},${(Y(pt[1])).toFixed(1)}`).join(" ");
+        svgEl("polygon", {
+          points: d, fill: palTax.get(v) || "#9aa5a0", "fill-opacity": 0.12,
+          class: "rank-band", stroke: palTax.get(v) || "#9aa5a0",
+          "stroke-opacity": 0.28, "stroke-width": 0.7, "stroke-linejoin": "round",
+        }, gBand);
+        // 类群名框标注: 块内左上角, 白底描边框, 拉丁等级斜体(恒定屏幕字号)
+        const col = palTax.get(v) || "#9aa5a0";
+        const it = ITALIC_RANKS.has(taxRank);
+        const txt = v + (it ? "" : "");
+        const estW = txt.length * 6.2 + 12;
+        const gL = svgEl("g", { class: "mark-g" }, gBand);
+        gL.style.transform = `translate(${(X(node.depth) + 6).toFixed(1)}px,${(Y(leaves[0].y) - 7).toFixed(1)}px) var(--mark-inv)`;
+        svgEl("rect", { x: 0, y: 0, width: estW, height: 17, rx: 4,
+          fill: "var(--panel)", "fill-opacity": 0.88, stroke: col, "stroke-opacity": 0.75,
+          "stroke-width": 0.8, class: "rank-label-box" }, gL);
+        const tL = svgEl("text", { x: estW / 2, y: 12, class: "rank-label",
+          "text-anchor": "middle",
+          "font-style": it ? "italic" : "normal" }, gL);
+        tL.textContent = txt;
+      }
+    }
+  }
+  for (const [m, ci] of markedCladeNodes) {
+    let lo = 1e9, hi = -1, dmax = m.depth;
+    (function w(n) {
+      if (n.isQuery) return;
+      if (!n.children.length) { lo = Math.min(lo, n.y); hi = Math.max(hi, n.y); }
+      dmax = Math.max(dmax, n.depth);
+      n.children.forEach(w);
+    })(m);
+    if (hi < lo) { lo = hi = m.y; }
+    svgEl("rect", {
+      x: X(m.depth) - 3, y: Y(lo) - 8,
+      width: Math.max(30, X(dmax) - X(m.depth) + 170), height: (hi - lo + 1) * TIP_ROW + 2,
+      fill: MARK_COLORS[ci], "fill-opacity": 0.16, class: "clade-band",
+      stroke: MARK_COLORS[ci], "stroke-opacity": 0.35, "stroke-width": 0.6, rx: 3,
+    }, gBand);
+  }
+  for (const node of PC.allNodes(tree)) {
+    if (!node.up) continue;
+    // 手动折叠: 子树内一切(含 query, 计数已标注在三角上)隐藏
+    if (collapsedManual.size && underManual(node)) continue;
+    // 自动聚焦折叠段: 只画段三角形, query 仍显示
+    if (collapsed.length && !node.isQuery && isUnderCollapsed(node)) continue;
+    const col = node.isQuery ? C.query : branchColorFor(node);
+    const y1 = Y(node.y), x1 = X(node.depth);
+    const y0 = Y(node.up.y), x0 = X(node.up.depth);
+    const w = node.isQuery ? 2.6 : (node.up.isQueryAnchor ? 1.8 : 1.1);
+    const path = `M${x0},${y0}V${y1}H${x1}`;
+    const cls = node.isQuery ? "branch query" : "branch";
+    node._el = svgEl("path", { d: path, class: cls, stroke: col, "stroke-width": w }, gBranch);
+    if (!node.children.length && !drawnTips.has(node.y)) {
+      drawnTips.add(node.y);
+      drawTip(node, X, Y, gMark, gLabel, gStrip, maxD);
+    }
+  }
+  // ---- 内节点热点: hover 高亮整个 clade, click 复制子树全部 tip ID ----
+  for (const node of PC.allNodes(tree)) {
+    if (node.children.length < 2 || node === tree || node.isQuery) continue;   // 单孩=嵌套包装, 无操作意义
+    if ((collapsed.length || collapsedManual.size) && (isUnderCollapsed(node) || underManual(node))) continue;
+    const g = svgEl("g", { class: "mark-g node-hot" }, gMark);
+    g.style.transform = `translate(${X(node.depth)}px,${Y(node.y)}px) var(--mark-inv)`;
+    const c = svgEl("circle", { cx: 0, cy: 0, r: 5.5, fill: "transparent",
+      "pointer-events": "all", class: "hot-c" }, g);
+    c._clade = node;
+    c.addEventListener("mousemove", e => {
+      highlightClade(node);
+      const n = cladeTipCount(node);
+      showTip(e, `<div class="t-title">clade · ${n} tips</div>
+        <div class="t-row"><span class="k">深度</span><span>${node.depth.toFixed(3)}</span></div>
+        <div class="t-row"><span class="k">点击</span><span>复制 ${n} 个序列 ID</span></div>`);
+    });
+    c.addEventListener("mouseleave", () => { clearHighlight(); hideTip(); });
+    c.addEventListener("click", e => { e.stopPropagation(); showActCard("clade", node, e.clientX, e.clientY); });
+  }
+  // ---- 折叠三角(尖锚在 LCA 分叉点, 与祖先枝相连; 底覆盖段内 tips) ----
+  window.__collapsedInfo = [];
+  for (const c of collapsed) {
+    const apexX = X(c.lca.depth), apexY = Y(c.lca.y);
+    const baseX = X(c.x1), topY = Y(c.yIn0), botY = Y(c.yIn1);
+    window.__collapsedInfo.push({ apexX: +apexX.toFixed(2), apexY: +apexY.toFixed(2), n: c.n });
+    const tr = svgEl("path", {
+      d: `M${apexX},${apexY}L${baseX},${topY}L${baseX},${botY}Z`,
+      class: "collapse-tri",
+    }, gBranch);
+    tr.addEventListener("click", () => { toastStatus(`折叠段含 ${c.n} tips(点击可缩放)`); zoomTo(apexX, (topY + botY) / 2, 1.4); });
+    tr.addEventListener("mousemove", e => { highlightNode(c.lca); showTip(e, `<div class="t-title">折叠子树: ${c.n} tips</div>` +
+      `<div class="t-row"><span class="k">LCA 深度</span><span>${c.lca.depth.toFixed(3)}</span></div>`); });
+    tr.addEventListener("mouseleave", () => { clearHighlight(); hideTip(); });
+    const tgn = svgEl("g", { class: "mark-g" }, gBranch);
+    tgn.style.transform = `translate(${baseX + 4}px,${(topY + botY) / 2 + 3.5}px) var(--mark-inv)`;
+    svgEl("text", { x: 0, y: 0, class: "collapse-n" }, tgn).textContent = `±${c.n}`;
+  }
+  // ---- 手动折叠的 clade 三角(节点本身占一行, 子树收起; 含 query 时品红描边) ----
+  for (const m of collapsedManual) {
+    const apexX = X(m.depth), apexY = Y(m.y);
+    let nTips = 0, nQ = 0, subDepth = m._subDepth || m.depth;
+    (function w(n) {
+      if (n.isQuery) { nQ += 1; return; }
+      if (!n.children.length) { nTips += 1; return; }
+      n.children.forEach(w);
+    })(m);
+    const halfH = 7, baseX2 = X(subDepth);
+    const tri = svgEl("path", {
+      d: `M${apexX},${apexY - halfH}L${baseX2},${apexY}L${apexX},${apexY + halfH}Z`,
+      class: "clade-tri collapse-tri", fill: C.branch,
+      stroke: nQ ? C.query : "none", "stroke-width": nQ ? 2 : 0,
+    }, gBranch);
+    tri.addEventListener("mousemove", e => { highlightClade(m); showTip(e,
+      `<div class="t-title">已折叠 clade · ${nTips} tips${nQ ? ` · ◆${nQ} query` : ""}</div>` +
+      `<div class="t-row"><span class="k">点击</span><span>展开 / 复制</span></div>`); });
+    tri.addEventListener("mouseleave", () => { clearHighlight(); hideTip(); });
+    tri.addEventListener("click", e => { e.stopPropagation(); showActCard("collapsed", m, e.clientX, e.clientY); });
+    const tg2 = svgEl("g", { class: "mark-g" }, gBranch);
+    tg2.style.transform = `translate(${baseX2 + 5}px,${apexY + 3.5}px) var(--mark-inv)`;
+    const tx2 = svgEl("text", { x: 0, y: 0, class: "collapse-n" }, tg2);
+    tx2.textContent = `${nTips}${nQ ? ` ◆${nQ}` : ""}`;
+    tg2.addEventListener("click", e => { e.stopPropagation(); showActCard("collapsed", m, e.clientX, e.clientY); });
+  }
+  // ---- 支持值点(若树带 support; 同样走 mark-g 恒定尺寸) ----
+  for (const node of PC.allNodes(tree)) {
+    if (node.support != null && node.children.length &&
+        !((collapsed.length || collapsedManual.size) && (isUnderCollapsed(node) || underManual(node)))) {
+      const s = Math.min(...(node.supports || [node.support]));
+      const col = s >= 95 ? C.ok : s >= 70 ? "#E6A700" : "#c9c9c9";
+      const g = svgEl("g", { class: "mark-g" }, gMark);
+      g.style.transform = `translate(${X(node.depth)}px,${Y(node.y)}px) var(--mark-inv)`;
+      svgEl("circle", { cx: 0, cy: 0, r: 2.1, fill: col, class: "support-dot" }, g);
+    }
+  }
+  worldW = X(maxD) + LABEL_X + labelMax + (stripsOn() ? 3 * (STRIP_W + STRIP_GAP) + 30 : 10) + 10;
+  window.__treeMaxX = X(maxD);          // 树深区右缘(fit 树优先用)
+  window.__stripsBase = X(maxD) + LABEL_X;
+  window.__maxDepth = maxD;             // 世界深度(检测 reroot 形态变化用)
+  applyView();
+  renderSide();
+  updateStatus();
+}
+function stripsOn(){ return $("#stripChk").checked; }
+function branchColorFor(node) {
+  if (bundle.ranks && taxRank && node._taxVal != null && !node.isQuery)
+    return palTax.get(node._taxVal) || "#9aa5a0";
+  if (colorMode === "placement") return C.branch;
+  return nodeColor(node, node.meta2);
+}
+function underManual(node) {
+  for (let a = node.up; a; a = a.up) if (collapsedManual.has(a)) return true;
+  return false;
+}
+function isUnderCollapsed(node) {
+  // 子树全部在折叠段内才隐藏; 段的 LCA 保留(它就是三角尖的锚, 连接祖先与折叠扇)
+  let lo = 1e9, hi = -1;
+  (function w(n){ if(!n.children.length){lo=Math.min(lo,n.y);hi=Math.max(hi,n.y);} n.children.forEach(w); })(node);
+  if (collapsed.some(c => node !== c.lca && lo >= c.yIn0 && hi <= c.yIn1)) return true;
+  for (const m of collapsedManual) {
+    if (node === m) continue;
+    for (let a = node; a; a = a.up) if (a === m) return true;   // node 是折叠节点后代 → 隐藏
+  }
+  return false;
+}
+function drawTip(node, X, Y, gMark, gLabel, gStrip, maxD) {
+  const m = bundle.ranks
+    ? { source: "backbone", tax: taxOf(node.name), taxVal: taxOf(node.name) && taxOf(node.name)[taxRank] }
+    : PC.parseTipMeta(node.name);
+  node.meta2 = m;
+  const x = X(node.depth), y = Y(node.y);
+  const dim = collapsed.length && inCollapsed(node.y) && !node.isQuery;
+  // 标记统一包 mark-g: 以 (0,0) 为中心绘制, translate 定位, 反向缩放走 CSS 变量(屏幕恒定尺寸)
+  if (node.isQuery) {
+    const r = 4.6;
+    const g = svgEl("g", { class: "mark-g" }, gMark);
+    g.style.transform = `translate(${x}px,${y}px) var(--mark-inv)`;
+    node._mg = g;
+    const mk = svgEl("path", {
+      d: `M0,${-r}L${r},0L0,${r}L${-r},0Z`,
+      class: "query-mark", fill: C.query,
+    }, g);
+    mk.addEventListener("click", e => { e.stopPropagation(); selectQuery(node); });
+    mk.addEventListener("mousemove", e => { highlightNode(node); tipQuery(e, node); });
+    mk.addEventListener("mouseleave", () => { clearHighlight(); hideTip(); });
+  } else {
+    const g = svgEl("g", { class: "mark-g" }, gMark);
+    g.style.transform = `translate(${x}px,${y}px) var(--mark-inv)`;
+    const dot = svgEl("circle", { cx: 0, cy: 0, r: 2.4, fill: nodeColor(node, m),
+      class: "node-dot", opacity: dim ? .5 : 1 }, g);
+    node._dot = dot;
+    dot.addEventListener("mousemove", e => { highlightNode(node); tipTip(e, node, m); });
+    dot.addEventListener("mouseleave", () => { clearHighlight(); hideTip(); });
+    dot.addEventListener("click", e => { e.stopPropagation(); showActCard("tip", node, e.clientX, e.clientY); });
+  }
+  // 标签(label-g: translate 定位 + --mark-inv 反向缩放 → 恒定屏幕字号, 抽稀配合)
+  const lg = svgEl("g", { class: "label-g" }, gLabel);
+  lg.style.transform = `translate(${x + (node.isQuery ? 9 : 6)}px,${y}px)` +
+    (labelOpts.scale ? "" : " var(--mark-inv)");
+  // 宿主关联 icon(标签左侧三槽, 仅标注 tip): human/vertebrate/plant, hover 出说明
+  const hm = bundle.host_marks && bundle.host_marks[node.name];
+  if (hm) {
+    let any = false;
+    HOST_ICONS.forEach((ic, i) => {
+      if (!hm[i]) return;
+      any = true;
+      const gi = svgEl("g", { class: "host-icon-g" }, lg);
+      const vb = ic.vb || 24;
+      const sc = 11.5 / vb;
+      gi.style.transform = `translate(${-15 - (HOST_ICONS.length - 1 - i) * 14}px,${(-vb * sc / 2).toFixed(2)}px) scale(${sc.toFixed(4)}) var(--host-scale)`;
+      ic.paths.forEach(d => svgEl("path", {
+        d, fill: ic.fillMode ? ic.color : "none", stroke: ic.fillMode ? "none" : ic.color,
+        "stroke-width": ic.fillMode ? 0 : 2.6,
+        "stroke-linecap": "round", "stroke-linejoin": "round", class: "host-icon",
+      }, gi));
+      gi.addEventListener("mousemove", e => showTip(e,
+        `<div class="t-row"><span class="k">宿主关联</span><span style="color:${ic.color};font-weight:650">${ic.label}</span></div>
+         <div class="t-row"><span class="k">来源</span><span>先前研究明确记录</span></div>`));
+      gi.addEventListener("mouseleave", hideTip);
+    });
+  }
+  const t = svgEl("text", {
+    x: 0, y: 3.7,
+    class: "tip-label" + (node.isQuery ? " q" : dim ? " dim" : "") +
+      (searchHits.has(node.name) ? " search-hit" : ""),
+  }, lg);
+  t.textContent = node.name;
+  node._lbl = t;
+  t._node = node;          // LOD 抽稀的反向引用
+  const mk = markedTips.get(node.name);
+  if (mk != null) {
+    t.classList.add("marked");
+    t.style.fill = MARK_TEXT[mk];
+    t.style.stroke = MARK_COLORS[mk];
+    t.style.strokeWidth = "3.4px";
+  }
+  if (node.isQuery) {
+    t.style.cursor = "pointer";
+    t.addEventListener("click", e => { e.stopPropagation(); selectQuery(node); });
+    t.addEventListener("mousemove", e => { highlightNode(node); tipQuery(e, node); });
+    t.addEventListener("mouseleave", () => { clearHighlight(); hideTip(); });
+  } else {
+    t.addEventListener("mousemove", e => { highlightNode(node); tipTip(e, node, m); });
+    t.addEventListener("mouseleave", () => { clearHighlight(); hideTip(); });
+  }
+  // 元数据条带(树右缘): x 由 applyStripX 按 kx 动态计算(恒定屏幕间距, 防与恒宽标签重叠)
+  if (stripsOn() && maxD) {
+    const cols = bundle.ranks && taxRank
+      ? [[m.taxVal || "未定级", palTax.get(m.taxVal) || "#c9c9c9", `${taxRank}: ${m.taxVal || "未定级"}`]]
+      : [[m.source, SOURCE_COLOR[m.source] || "#bbb", SOURCE_LABEL[m.source]],
+         ...(node.isQuery ? [["query", C.query, "query"]] : [])];
+    cols.forEach((c, i) => {
+      const r = svgEl("rect", { x: 0, y: y - 5.5, "data-i": i,
+        width: STRIP_W, height: 11, rx: 1.5, fill: c[1], class: "strip", opacity: dim ? .45 : .95 }, gStrip);
+      r.addEventListener("mousemove", e => tipStrip(e, c[2]));
+      r.addEventListener("mouseleave", hideTip);
+    });
+  }
+}
+function drawScale(g, X, maxD, worldH) {
+  // 取一个"好看"的深度步长; 线段保持几何(标定深度), 文字恒定屏幕字号(mark-g 补偿)
+  const raw = maxD / 5;
+  const mag = Math.pow(10, Math.floor(Math.log10(raw || 1)));
+  const step = [1, 2, 5].map(m => m * mag).find(v => v >= raw) || mag * 10;
+  const y = 8;
+  svgEl("line", { x1: X(0), y1: y, x2: X(step), y2: y, class: "axis-line" }, g);
+  svgEl("line", { x1: X(0), y1: y - 4, x2: X(0), y2: y + 4, class: "axis-line" }, g);
+  svgEl("line", { x1: X(step), y1: y - 4, x2: X(step), y2: y + 4, class: "axis-line" }, g);
+  const tg = svgEl("g", { class: "mark-g axis-tg" }, g);
+  tg.style.transform = `translate(${X(step) + 6}px,${y + 3.5}px) var(--mark-inv)`;
+  const tx = svgEl("text", { x: 0, y: 0, class: "axis-t" }, tg);
+  tx.textContent = `substitutions/site (step ${Number(step.toPrecision(2))})`;
+}
+
+/* ================= 视图变换(x/y 分离缩放 + 追踪式平滑动画) ================= */
+let viewTarget = null, viewAnim = null;
+function applyView() {
+  const vp = $("#treeSvg").querySelector("#viewport");
+  if (vp) {
+    vp.setAttribute("transform",
+      `translate(${view.tx},${view.ty}) scale(${view.kx},${view.ky})`);
+    // 标记反向缩放(屏幕恒定尺寸): 一次变量更新, 所有 mark-g 零成本继承
+    vp.style.setProperty("--mark-inv", `scale(${(1 / view.kx).toFixed(4)},${(1 / view.ky).toFixed(4)})`);
+    // 宿主 icon 与标签相反：随树缩放（抵消标签的反向缩放）
+    vp.style.setProperty("--host-scale", `scale(${view.ky.toFixed(4)})`);
+  }
+  // 标签动态抽稀(地图式): 屏幕行高放不下字号时隔行抽稀, 随放大加密到全显; query 标签常显
+  const eff = view.ky * TIP_ROW;
+  const stride = labelOpts.scale ? 1 : Math.max(1, Math.ceil(12 / eff));
+  vp.querySelectorAll(".tip-label").forEach(el => {
+    const n = el._node;
+    const show = !n || n.isQuery || (n.y % stride === 0);
+    el.style.opacity = show ? "" : "0";
+    el.style.pointerEvents = show ? "" : "none";
+    // 条带 x 随 kx 动态: 偏移=最长标签世界占宽(labelMax/kx)+8 → 屏幕上恒在标签尾右侧, 永不重叠
+  const sOff = Math.max(24, labelMax / view.kx + 8);
+  vp.querySelectorAll(".strip").forEach(el =>
+    el.setAttribute("x", (window.__stripsBase + sOff + (+el.dataset.i) * (STRIP_W + STRIP_GAP)).toFixed(1)));
+});
+}
+/* 追踪式动画: viewTarget 为目标, 每帧按比例逼近 —— 连续滚轮/多次触发天然平滑 */
+function animateView(target) {
+  viewTarget = target;
+  if (viewAnim) return;
+  (function step() {
+    const e = 0.3;
+    let done = true;
+    for (const k of ["kx", "ky", "tx", "ty"]) {
+      const d = viewTarget[k] - view[k];
+      const tol = Math.abs(viewTarget[k]) * 1e-4 + 1e-3;
+      if (Math.abs(d) > tol) { view[k] += d * e; done = false; }
+      else view[k] = viewTarget[k];
+    }
+    applyView();
+    viewAnim = done ? null : requestAnimationFrame(step);
+  })();
+}
+function zoomTo(wx, wy, ky, kx) {
+  if (kx == null) kx = Math.min(ky, 2);
+  animateView({ kx, ky, tx: stage.w / 2 - wx * kx, ty: stage.h / 2 - wy * ky });
+}
+function fitView() {
+  // 树优先: kx 只按"树深区 + 固定标签保留位(≤200px)"适配, 不被超长标签绑架;
+  // 标签恒定字号后溢出部分平移可达. 树可放大占满窄画布(上限 2.5).
+  view = { kx: 1, ky: 1, tx: 0, ty: 0 };
+  const treeW = (window.__treeMaxX || stage.w * 0.55) + 10;
+  const reserve = Math.min(labelMax, 200);
+  const kx = Math.min(2.5, Math.max(0.05, (stage.w - 16) / (treeW + reserve)));
+  viewTarget = { kx, ky: Math.min(1, (stage.h - 8) / worldH), tx: 0, ty: 0 };
+  if (viewAnim) { cancelAnimationFrame(viewAnim); viewAnim = null; }
+  animateView(viewTarget);
+}
+function resetView() { fitView(); }
+
+/* ================= 交互: 平移/缩放/tooltip ================= */
+(function initPanZoom() {
+  const svg = $("#treeSvg");
+  let drag = null;
+  svg.addEventListener("mousedown", e => {
+    drag = { x: e.clientX, y: e.clientY, tx: view.tx, ty: view.ty, moved: 0 };
+    svg.classList.add("panning");
+  });
+  window.addEventListener("mousemove", e => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    drag.moved = Math.max(drag.moved, Math.abs(dx) + Math.abs(dy));
+    view.tx = drag.tx + dx; view.ty = drag.ty + dy; applyView();
+  });
+  window.addEventListener("mouseup", () => { drag = null; svg.classList.remove("panning"); });
+  svg.addEventListener("click", e => { if (e.target === svg) { selected = null; renderSide(); } hideTip(); });
+  svg.addEventListener("wheel", e => {
+    e.preventDefault();
+    hideTip();                     // 视图变换后旧 tooltip 位置失效, 防御性隐藏
+    const r = svg.getBoundingClientRect();
+    const mx = e.clientX - r.left, my = e.clientY - r.top;
+    const cur = viewTarget || view;
+    // 连续速度映射: 单格(±120)≈1.08; 行模式(deltaMode=1)×33 归一; clamp 防触控板巨 delta
+    const dy = e.deltaY * (e.deltaMode === 1 ? 33 : 1);
+    const f = Math.min(1.6, Math.max(1 / 1.6, Math.exp(-dy * 0.00065)));
+    const clamp = v => Math.min(80, Math.max(0.05, v));
+    const zoomX = e.ctrlKey || e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY);
+    if (zoomX && !e.ctrlKey) {                 // 横轴缩放(shift 或横向滚轮/触控板)
+      const wx = (mx - cur.tx) / cur.kx;
+      animateView({ kx: clamp(cur.kx * f), ky: cur.ky,
+                    tx: mx - wx * clamp(cur.kx * f), ty: cur.ty });
+    } else if (e.ctrlKey) {                    // 双轴(触控板捏合)
+      const wx = (mx - cur.tx) / cur.kx, wy = (my - cur.ty) / cur.ky;
+      const kx2 = clamp(cur.kx * f), ky2 = clamp(cur.ky * f);
+      animateView({ kx: kx2, ky: ky2, tx: mx - wx * kx2, ty: my - wy * ky2 });
+    } else {                                    // 纵轴缩放(默认滚轮): 树的行密度
+      const wy = (my - cur.ty) / cur.ky;
+      animateView({ kx: cur.kx, ky: clamp(cur.ky * f),
+                    tx: cur.tx, ty: my - wy * clamp(cur.ky * f) });
+    }
+  }, { passive: false });
+  svg.addEventListener("dblclick", resetView);
+})();
+
+/* ---------- 导航组拖动(位置持久) ---------- */
+(function initPadDrag() {
+  const pad = $("#navpad");
+  let drag = null;
+  pad.querySelector(".pad-handle").addEventListener("mousedown", e => {
+    const r = pad.getBoundingClientRect();
+    drag = { dx: e.clientX - r.left, dy: e.clientY - r.top };
+    pad.classList.add("dragging");
+    e.preventDefault();
+  });
+  window.addEventListener("mousemove", e => {
+    if (!drag) return;
+    const x = Math.max(4, Math.min(innerWidth - 60, e.clientX - drag.dx));
+    const y = Math.max(4, Math.min(innerHeight - 60, e.clientY - drag.dy));
+    pad.style.left = x + "px"; pad.style.top = y + "px";
+    pad.style.right = "auto"; pad.style.bottom = "auto";
+  });
+  window.addEventListener("mouseup", () => {
+    if (!drag) return;
+    drag = null;
+    pad.classList.remove("dragging");
+    try { localStorage.setItem("explorer.navpad",
+      JSON.stringify({ left: pad.offsetLeft, top: pad.offsetTop })); } catch (e) {}
+  });
+  try {
+    const saved = JSON.parse(localStorage.getItem("explorer.navpad"));
+    if (saved && isFinite(saved.left)) {
+      pad.style.left = Math.min(saved.left, innerWidth - 60) + "px";
+      pad.style.top = Math.min(saved.top, innerHeight - 60) + "px";
+      pad.style.right = "auto"; pad.style.bottom = "auto";
+    }
+  } catch (e) {}
+})();
+
+/* ---------- 导航按钮组 ---------- */
+(function initNavpad() {
+  const pad = $("#navpad");
+  pad.addEventListener("click", e => {
+    const act = e.target.closest("button") && e.target.closest("button").dataset.act;
+    if (!act) return;
+    const cur = viewTarget || view;
+    const step = Math.max(40, stage.w * 0.12);          // 平移步长(屏幕 px)
+    const vstep = Math.max(40, stage.h * 0.12);
+    const clamp = v => Math.min(80, Math.max(0.05, v));
+    if (act === "up")         animateView({ ...cur, ty: cur.ty + vstep });
+    else if (act === "down")  animateView({ ...cur, ty: cur.ty - vstep });
+    else if (act === "left")  animateView({ ...cur, tx: cur.tx + step });
+    else if (act === "right") animateView({ ...cur, tx: cur.tx - step });
+    else if (act === "center") { resetView(); return; }
+    else if (act === "xin" || act === "xout") {
+      // 横轴专用拉伸/压缩(枝长方向), 纵轴不动
+      const f = act === "xin" ? 1.35 : 1 / 1.35;
+      const cx = stage.w / 2;
+      const wx = (cx - cur.tx) / cur.kx;
+      const kx2 = clamp(cur.kx * f);
+      animateView({ kx: kx2, ky: cur.ky, tx: cx - wx * kx2, ty: cur.ty });
+    }
+    else if (act === "zin" || act === "zout") {
+      const f = act === "zin" ? 1.3 : 1 / 1.3;
+      const cx = stage.w / 2, cy = stage.h / 2;
+      const wx = (cx - cur.tx) / cur.kx, wy = (cy - cur.ty) / cur.ky;
+      const kx2 = clamp(cur.kx * f), ky2 = clamp(cur.ky * f);
+      animateView({ kx: kx2, ky: ky2, tx: cx - wx * kx2, ty: cy - wy * ky2 });
+    }
+    hideTip();
+  });
+})();
+
+const tipbox = $("#tipbox");
+/* ---- hover 高亮: 该 tip 的标签加粗 + 到根的祖先路径枝高亮 ---- */
+let hlEls = [];
+function highlightNode(node) {
+  clearHighlight();
+  const vp = $("#treeSvg").querySelector("#viewport");
+  if (vp) vp.classList.add("focusing");
+  let n = node;
+  while (n) {
+    if (n._el) {
+      n._el.classList.add("hl");
+      n._el.style.strokeWidth = "2.2px";     // vector-effect 下即恒定屏幕宽(收敛, 此前 3.2)
+      hlEls.push(n._el);
+    }
+    n = n.up;
+  }
+  if (node._lbl) { node._lbl.classList.add("hl"); hlEls.push(node._lbl); }
+  if (node._lbl && node._lbl.parentNode && node._lbl.parentNode.classList.contains("label-g")) {
+    node._lbl.parentNode.classList.add("keep"); hlEls.push(node._lbl.parentNode);
+  }
+  if (node._dot) {
+    node._dot._r0 = node._dot.getAttribute("r");
+    node._dot.setAttribute("r", +node._dot._r0 + 2.6);
+    hlEls.push(node._dot);
+    const mg = node._dot.parentNode;
+    if (mg && mg.classList.contains("mark-g")) { mg.classList.add("keep"); hlEls.push(mg); }
+  }
+  if (node._mg) { node._mg.classList.add("keep"); hlEls.push(node._mg); }
+}
+function clearHighlight() {
+  for (const el of hlEls) {
+    el.classList.remove("hl");
+    el.classList.remove("keep");
+    if (el._r0) { el.setAttribute("r", el._r0); el._r0 = null; }
+    if (el.style && el.style.strokeWidth) el.style.strokeWidth = "";
+  }
+  hlEls = [];
+  const vp = $("#treeSvg") && $("#treeSvg").querySelector("#viewport");
+  if (vp) vp.classList.remove("focusing");
+}
+/* clade 整体高亮(hover 内节点热点): 子树全部枝加 hl(灰色), 其余弱化 */
+function highlightClade(node) {
+  clearHighlight();
+  const vp = $("#treeSvg").querySelector("#viewport");
+  if (vp) vp.classList.add("focusing");
+  (function w(n) {
+    if (n._el) { n._el.classList.add("hl"); n._el.style.strokeWidth = "2.2px"; hlEls.push(n._el); }
+    if (n._lbl) { n._lbl.classList.add("hl"); hlEls.push(n._lbl); }   // clade 高亮联动全部 tip 标签
+    n.children.forEach(w);
+  })(node);
+  if (node._lbl) { node._lbl.classList.add("hl"); hlEls.push(node._lbl); }
+}
+function cladeTipCount(node) {
+  let k = 0;
+  (function w(n) { if (!n.children.length) k += 1; n.children.forEach(w); })(node);
+  return k;
+}
+/* 复制: tip 单个 ID / clade 全部 tip ID(换行分隔); clipboard API + execCommand 兜底 */
+function copyText(text, label) {
+  const done = () => updateStatus(`已复制 ${label || text.slice(0, 40)}`);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, () => _copyFallback(text, done));
+  } else _copyFallback(text, done);
+}
+function _copyFallback(text, done) {
+  const ta = document.createElement("textarea");
+  ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); done(); } catch (e) { updateStatus("复制失败(浏览器限制)"); }
+  ta.remove();
+}
+function copyClade(node) {
+  const names = [];
+  (function w(n) { if (!n.children.length && n.name) names.push(n.name); n.children.forEach(w); })(node);
+  copyText(names.join("\n"), `${names.length} 个序列 ID`);
+}
+/* ---------- 点击操作卡(两段式: 先选中, 再选操作) ---------- */
+function hideActCard() { $("#actCard").style.display = "none"; }
+function showActCard(kind, node, x, y) {
+  const card = $("#actCard");
+  const meta = PC.parseTipMeta(node.name || "");
+  if (kind === "tip") {
+    const nClade = node.up && cladeTipCount(node.up);
+    card.querySelector(".ac-title").textContent = node.name;
+    card.querySelector(".ac-sub").textContent = SOURCE_LABEL[meta.source] || "";
+    card.querySelector(".ac-btns").innerHTML =
+      `<button data-act="copy-one">复制此 ID</button>` +
+      (node.up && !node.up.isQueryAnchor ? `<button data-act="copy-clade">复制所在 clade (${nClade} ID)</button>` : "") +
+      `<button data-act="mark">标记</button><button data-act="zoom">缩放至此</button>`;
+    card._target = node;
+    card._kind = "tip";
+  } else if (kind === "clade") {
+    const n = cladeTipCount(node);
+    card.querySelector(".ac-title").textContent = `clade · ${n} tips`;
+    card.querySelector(".ac-sub").textContent = `深度 ${node.depth.toFixed(3)} substitutions/site`;
+    card.querySelector(".ac-btns").innerHTML =
+      `<button data-act="copy-clade">复制全部 ID (${n})</button>` +
+      `<button data-act="rotate">旋转</button>` +
+      `<button data-act="collapse">折叠此 clade</button>` +
+      `<button data-act="mark">标记</button><button data-act="zoom">缩放至此</button>`;
+    card._target = node;
+    card._kind = "clade";
+  } else if (kind === "collapsed") {
+    let nTips = 0, nQ = 0;
+    (function w(n) { if (n.isQuery) { nQ += 1; return; } if (!n.children.length) nTips += 1; n.children.forEach(w); })(node);
+    card.querySelector(".ac-title").textContent = `已折叠 clade · ${nTips} tips${nQ ? ` · ◆${nQ} query` : ""}`;
+    card.querySelector(".ac-sub").textContent = `深度 ${node.depth.toFixed(3)} substitutions/site`;
+    card.querySelector(".ac-btns").innerHTML =
+      `<button data-act="expand">展开此 clade</button>` +
+      `<button data-act="copy-clade">复制全部 ID (${nTips})</button>`;
+    card._target = node;
+    card._kind = "collapsed";
+  }
+  card.style.display = "block";
+  const r = card.getBoundingClientRect();
+  card.style.left = Math.min(x + 12, innerWidth - r.width - 10) + "px";
+  card.style.top = Math.min(y + 12, innerHeight - r.height - 10) + "px";
+}
+(function initActCard() {
+  const card = $("#actCard");
+  card.addEventListener("click", e => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    const t = card._target, act = btn.dataset.act;
+    if (act === "copy-one") copyText(t.name, `tip ID: ${t.name.slice(0, 36)}`);
+    else if (act === "copy-clade") {
+      if (card._kind === "tip") copyClade(t.up); else copyClade(t);
+    } else if (act === "mark") {
+      // 循环换色: 无→0→1→2→3→清除
+      const key = card._kind === "tip" ? t.name : cladeSign(t);
+      const store = card._kind === "tip" ? markedTips : markedClades;
+      const cur = store.get(key);
+      const next = cur == null ? 0 : (cur + 1) % 5;
+      if (next === 4) { store.delete(key); updateStatus("已清除标记"); }
+      else { store.set(key, next); updateStatus(`已标记(色 ${next + 1}/4), 再点切换/清除`); }
+      render();
+    } else if (act === "rotate") {
+      const key = cladeSign(t);
+      if (rotatedKeys.has(key)) { rotatedKeys.delete(key); updateStatus("已恢复旋转"); }
+      else { rotatedKeys.add(key); updateStatus("已旋转(孩子顺序互换), 再点恢复"); }
+      render();                                    // 视图保留, 仅重排
+    } else if (act === "collapse") {
+      collapsedKeys.add(cladeSign(t));
+      render(); fitView();
+      updateStatus(`已折叠 clade(${cladeTipCount(t)} tips)`);
+    } else if (act === "expand") {
+      collapsedKeys.delete(cladeSign(t));
+      render(); fitView();
+      updateStatus("已展开 clade");
+    } else if (act === "zoom") {
+      // 智能缩放: y=子树行范围, x=子树深度跨度撑满画布 72%(看局部枝长时自动横向拉长)
+      const target = card._kind === "tip" && t.up ? t.up : t;   // tip 用其所在 clade
+      let lo = 1e9, hi = -1, dmin = 1e9, dmax = -1e9;
+      (function w(n) {
+        if (n.isQuery) return;
+        if (!n.children.length) { lo = Math.min(lo, n.y); hi = Math.max(hi, n.y); }
+        dmin = Math.min(dmin, n.depth); dmax = Math.max(dmax, n.depth);
+        n.children.forEach(w);
+      })(target);
+      const pxPerD = layout.maxWidth ? (window.__treeMaxX / layout.maxWidth) : 1;
+      const cy = (lo + hi) / 2 * TIP_ROW + 20;
+      const ky2 = Math.max(0.2, Math.min(3, (stage.h - 60) / ((hi - lo + 2) * TIP_ROW)));
+      const span = Math.max(1e-6, dmax - dmin);
+      const kx2 = Math.max(0.2, Math.min(60, (stage.w * 0.72) / (span * pxPerD)));
+      zoomTo(dmin * pxPerD + 20, cy, ky2, kx2);
+    }
+    hideActCard();
+  });
+  document.addEventListener("click", e => {
+    // tip/clade/query 的点击均 stopPropagation(到不了这里), 无需豁免 treeSvg ——
+    // 豁免它曾导致"点击树空白处卡片不消失"
+    if (!e.target.closest("#actCard")) hideActCard();
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") hideActCard(); });
+})();
+function showTip(e, html) {
+  tipbox.innerHTML = html; tipbox.style.display = "block";
+  const r = tipbox.getBoundingClientRect();
+  let x = e.clientX + 16, y = e.clientY + 14;
+  if (x + r.width > innerWidth - 8) x = e.clientX - r.width - 12;
+  if (y + r.height > innerHeight - 8) y = e.clientY - r.height - 12;
+  tipbox.style.left = x + "px"; tipbox.style.top = y + "px";
+}
+function hideTip() { tipbox.style.display = "none"; }
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c])); }
+function tipTip(e, node, m) {
+  if (bundle.ranks) {
+    const path = m.tax ? bundle.ranks.filter(r => m.tax[r])
+      .map(r => ITALIC_RANKS.has(r) ? `${r[0]}·<i>${esc(m.tax[r])}</i>` : `${r[0]}·${esc(m.tax[r])}`) : [];
+    showTip(e, `<div class="t-title">${esc(node.name)}</div>` +
+      `<div class="t-row"><span class="k">${esc(taxRank)}</span><span>${esc(m.taxVal || "未定级")}</span></div>` +
+      `<div style="margin-top:3px;color:var(--ink-2);font-size:11.5px">${path.length ? path.join(" › ") : "无分类标注"}</div>` +
+      `<div class="t-row" style="margin-top:2px"><span class="k">枝长</span><span>${node.length.toFixed(4)}</span></div>` +
+      (bundle.host_marks && bundle.host_marks[node.name]
+        ? `<div class="t-row"><span class="k">宿主关联</span><span>` +
+          HOST_ICONS.filter((ic, i) => bundle.host_marks[node.name][i])
+            .map(ic => `<span style="color:${ic.color};font-weight:650">${ic.label}</span>`).join(" · ") +
+          `</span></div>` : ""));
+    return;
+  }
+  const rows = [
+    ["来源", `<span class="pill" style="color:${SOURCE_COLOR[m.source]}">●</span>${SOURCE_LABEL[m.source]}`],
+    m.group_tag ? ["类群标签", m.group_tag] : null,
+    ["枝长", node.length.toFixed(4)],
+  ].filter(Boolean);
+  showTip(e, `<div class="t-title">${esc(node.name)}</div>` +
+    rows.map(r => `<div class="t-row"><span class="k">${r[0]}</span><span>${r[1]}</span></div>`).join(""));
+}
+function tipQuery(e, node) {
+  const p = node.placement;
+  let html = `<div class="t-title" style="color:${C.query}">◆ ${esc(p.query_id)}</div>`;
+  if (p.original_id) html += `<div class="t-row"><span class="k">原始 ORF ID</span><span>${esc(p.original_id)}</span></div>`;
+  if (p.supergroup) html += `<div class="t-row"><span class="k">超群</span><span>${esc(p.supergroup)}</span></div>`;
+  html += `<table class="nn"><tr><th>Top-5 邻居</th><th>dist</th></tr>` +
+    p.neighbors.map(nn => `<tr><td title="${esc(nn[0])}">${esc(nn[0])}</td><td class="num">${nn[1].toFixed(3)}</td></tr>`).join("") +
+    "</table>";
+  showTip(e, html);
+}
+function tipStrip(e, label) { showTip(e, `<div class="t-title">${esc(label)}</div>`); }
+
+/* ================= 侧栏 ================= */
+function truthHit(p) {
+  const truth = bundle.truth && bundle.truth[p.query_id];
+  return truth ? truth.includes(p.neighbors[0][0]) : null;
+}
+function renderSide() {
+  // 概要
+  const m = bundle.metrics || {};
+  const hits = null;                            // 真值仅脚本侧评估, 前端不显示
+  const nn1Dist = placed.map(q => q.placement.neighbors[0]).filter(Boolean).map(nn => nn[1]);
+  const meanNn1 = nn1Dist.length ? nn1Dist.reduce((a, b) => a + b, 0) / nn1Dist.length : null;
+  $("#sumCard").innerHTML = `
+    <div class="kv"><b>超群</b><span class="v">${esc(bundle.supergroup)}</span></div>
+    <div class="kv"><b>骨架 tip</b><span class="v">${bundle.n_backbone}</span></div>
+    <div class="kv"><b>Query</b><span class="v" style="color:var(--query)">${bundle.n_query}</span></div>
+    ${meanNn1 != null ? `<div class="kv"><b>平均最近邻距离</b><span class="v" style="color:var(--query)">${meanNn1.toFixed(3)}</span></div>` : ""}
+    ${hits != null ? `<div class="kv"><b>nn1∈真值sister</b><span class="v" style="color:${C.ok}">${hits}/${bundle.n_query}</span></div>` : ""}
+    <div style="margin-top:5px">
+      ${m.spearman != null ? `<span class="metric">spearman <b>${(+m.spearman).toFixed(3)}</b></span>` : ""}
+      ${m.val_top5_hit != null ? `<span class="metric">top5 <b>${(+m.val_top5_hit).toFixed(2)}</b></span>` : ""}
+      ${m.eval_pearson != null ? `<span class="metric">pearson <b>${(+m.eval_pearson).toFixed(2)}</b></span>` : ""}
+    </div>`;
+  let lg = "";
+  if (bundle.ranks && taxRank) {
+    const vc = bundle.value_counts[taxRank] || {};
+    const keys = Object.keys(vc).sort((a, b) => vc[b] - vc[a]);
+    const itl = ITALIC_RANKS.has(taxRank);
+    lg = keys.slice(0, 14).map(k => li(palTax.get(k) || "#9aa5a0",
+        itl ? `<i>${esc(k)}</i>` : esc(k), vc[k])).join("") +
+         (keys.length > 14 ? li("#888", `…共 ${keys.length} 类`, 0) : "") +
+         (bundle.n_backbone - Object.values(vc).reduce((a, b) => a + b, 0) > 0
+           ? li("#c9c9c9", "未定级", bundle.n_backbone - Object.values(vc).reduce((a, b) => a + b, 0)) : "");
+  } else if (colorMode === "placement") {
+    lg = li(C.query, "query(新放置)") + li(C.branch, "骨架 backbone");
+    if (hasSupport) lg += li("#c9c9c9", "support<70") + li("#E6A700", "support 70-95") + li(C.ok, "support≥95");
+  } else if (colorMode === "source") {
+    lg = Object.keys(SOURCE_LABEL).filter(k => k !== "other" || countBy.source.other)
+      .map(k => li(SOURCE_COLOR[k], SOURCE_LABEL[k], countBy.source[k] || 0)).join("");
+  } else {
+    lg = [...palGroup.entries()].map(([k, v]) => li(v, k, countBy.group[k] || 0)).join("") || li("#9aa5a0", "无");
+  }
+  function li(color, label, n) {
+    return `<div class="li"><span class="sw" style="background:${color}"></span>${esc(label)}${n ? `<span class="n">${n}</span>` : ""}</div>`;
+  }
+  $("#legend").innerHTML = lg;
+  // query 列表
+  $("#qcount").textContent = `(${placed.length})`;
+  $("#qlist").innerHTML = placed.map(q => {
+    const p = q.placement;
+    const nn1 = p.neighbors[0];
+    return `<div class="qrow${selected === q ? " sel" : ""}" data-q="${esc(p.query_id)}">
+      <span class="qid" title="${esc(p.query_id)}${p.original_id ? " · 原始 " + esc(p.original_id) : ""}">${esc(p.query_id)}</span>
+      <span class="conf">${nn1 ? nn1[1].toFixed(3) : "—"}</span></div>`;
+  }).join("");
+  $("#qlist").querySelectorAll(".qrow").forEach(row => {
+    row.addEventListener("click", () => {
+      const q = placed.find(x => x.placement.query_id === row.dataset.q);
+      if (q) selectQuery(q, true);
+    });
+  });
+  // 选中详情
+  const d = $("#detailCard");
+  if (selected) {
+    const p = selected.placement;
+    d.style.display = "";
+    d.innerHTML = `<div style="font-weight:650;color:var(--query);word-break:break-all">${esc(p.query_id)}</div>
+      ${p.original_id ? `<div class="kv" style="margin-top:4px"><span class="k">原始 ORF ID</span><span class="v" style="word-break:break-all">${esc(p.original_id)}</span></div>` : ""}
+      ${p.supergroup ? `<div class="kv"><span class="k">超群</span><span class="v">${esc(p.supergroup)}</span></div>` : ""}
+      <div class="kv"><span class="k">最近邻距离</span><span class="v">${p.neighbors[0] ? p.neighbors[0][1].toFixed(3) : "—"}</span></div>
+      <table class="nn" style="margin-top:6px"><tr><th>邻居</th><th>dist</th></tr>
+      ${p.neighbors.map(nn => `<tr><td title="${esc(nn[0])}">${esc(nn[0])}</td><td class="num">${nn[1].toFixed(3)}</td></tr>`).join("")}
+      </table>`;
+  } else { d.style.display = "none"; }
+}
+function selectQuery(q, zoom = true) {
+  selected = q;
+  renderSide();
+  updateStatus("已选中 query: " + q.placement.query_id);
+  if (zoom) {
+    // mark-g 的 translate 就是该 query 的世界坐标；getBBox 是元素局部坐标（约 ±4.6px），
+    // 直接用会把视图定位到左上角。
+    let wx = 60, wy = q.y * TIP_ROW + 20;
+    try {
+      const el = q._mg || q._el;
+      const match = el && el.style && el.style.transform
+        ? el.style.transform.match(/translate\(([-0-9.]+)px,\s*([-0-9.]+)px\)/)
+        : null;
+      if (match) {
+        wx = parseFloat(match[1]);
+        wy = parseFloat(match[2]);
+      }
+    } catch (err) { /* 回退到默认坐标 */ }
+    zoomTo(wx, wy, 2.4, 1.5);
+  }
+}
+
+/* ================= 搜索 ================= */
+$("#searchIn").addEventListener("input", e => {
+  const q = e.target.value.trim();
+  const box = $("#searchhits");
+  searchHits.clear();
+  if (!q || !layout) { box.style.display = "none"; return; }
+  let re = null;
+  try { re = new RegExp(q, "i"); } catch (_) { re = null; }
+  const hits = layout.tips.filter(t => !q || t.name.toLowerCase().includes(q.toLowerCase()) || (re && re.test(t.name)));
+  hits.slice(0, 40).forEach(t => searchHits.add(t.name));
+  box.innerHTML = hits.slice(0, 40).map(t => {
+    const i = t.name.toLowerCase().indexOf(q.toLowerCase());
+    const s = i >= 0 ? esc(t.name.slice(0, i)) + "<em>" + esc(t.name.slice(i, i + q.length)) + "</em>" + esc(t.name.slice(i + q.length)) : esc(t.name);
+    const tag = t.isQuery ? ' <span style="color:var(--query)">◆query</span>' : "";
+    return `<div class="hit" data-n="${esc(t.name)}">${s}${tag}</div>`;
+  }).join("") || `<div class="hit" style="color:var(--ink2)">无命中</div>`;
+  box.style.display = "block";
+  box.querySelectorAll(".hit[data-n]").forEach(h => h.addEventListener("click", () => {
+    const t = layout.tips.find(x => x.name === h.dataset.n);
+    box.style.display = "none";
+    if (t) { if (t.isQuery) selectQuery(t); else zoomTo(20, t.y * TIP_ROW + 20, 3); }
+  }));
+});
+document.addEventListener("click", e => { if (!e.target.closest("#searchbox")) $("#searchhits").style.display = "none"; });
+
+/* ================= 导出 ================= */
+const EXPORT_CSS = `
+.branch { fill:none; stroke-linecap:round; vector-effect:non-scaling-stroke; }
+.branch.hl { stroke:#5a6a63 !important; }
+.tip-label { font:11.5px ui-monospace, Menlo, Consolas, monospace; fill:#1c2723;
+  paint-order:stroke; stroke:#fafbfa; stroke-width:2.6px; }
+.tip-label.q { font-weight:700; fill:#d81b60; }
+.tip-label.dim { fill:#5a6a63; opacity:.75; }
+.query-mark { stroke:#fff; stroke-width:1.2; }
+.node-dot { stroke:#ffffff; stroke-width:1; }
+.collapse-tri { fill:#b9c2c8; fill-opacity:.55; }
+.collapse-tri:hover { fill:#2a826b; fill-opacity:.85; }
+.collapse-n { font:10.5px sans-serif; fill:#5a6a63; }
+.axis-line { stroke:#d8e0dc; stroke-width:1; } .axis-t { font:10.5px sans-serif; fill:#5a6a63; }
+`;
+/* 把 var(--x) 展开成字面值：独立 SVG 文件里没有 :root 变量，
+   不展开会导致 fill:var(--panel) → 黑色方块(用户看到的“clade 名称下黑色阴影”)。 */
+function expandCssValue(value) {
+  const cs = getComputedStyle(document.documentElement);
+  let out = value, guard = 0;
+  while (out.includes("var(") && guard++ < 8) {
+    out = out.replace(/var\(\s*(--[\w-]+)\s*(?:,\s*([^)]*))?\)/g, (_, varName, fallback) => {
+      const resolved = cs.getPropertyValue(varName).trim();
+      return resolved || (fallback || "").trim();
+    });
+  }
+  return out;
+}
+function expandCssVars(root) {
+  const attrs = ["fill", "stroke", "stop-color", "flood-color", "style"];
+  const walk = el => {
+    if (el.getAttribute) {
+      for (const attr of attrs) {
+        const current = el.getAttribute(attr);
+        if (current && current.includes("var(")) el.setAttribute(attr, expandCssValue(current));
+      }
+    }
+    for (const child of el.children || []) walk(child);
+  };
+  walk(root);
+}
+function currentViewBox(full) {
+  const H = Math.ceil(layout.nTips * TIP_ROW + 60), W = Math.ceil(stage.w);
+  if (full) return { x: 0, y: 0, w: W, h: H, W, H };
+  const { kx, ky, tx, ty } = view;
+  const x0 = Math.max(0, (0 - tx) / kx), y0 = Math.max(0, (0 - ty) / ky);
+  const x1 = Math.min(W, (stage.w - tx) / kx), y1 = Math.min(H, (stage.h - ty) / ky);
+  return { x: x0, y: y0, w: Math.max(60, x1 - x0), h: Math.max(60, y1 - y0), W, H };
+}
+function svgString(full = true) {
+  clearHighlight();                                  // 导出为干净态(无聚焦弱化)
+  const svg = $("#treeSvg").cloneNode(true);
+  svg.style.setProperty("--host-scale", "scale(1)");
+  const box = currentViewBox(full);
+  svg.setAttribute("viewBox", `${box.x.toFixed(1)} ${box.y.toFixed(1)} ${box.w.toFixed(1)} ${box.h.toFixed(1)}`);
+  svg.setAttribute("width", Math.ceil(box.w));
+  svg.setAttribute("height", Math.ceil(box.h));
+  const vp = svg.querySelector("#viewport");
+  if (full) {
+    vp.setAttribute("transform", "");                // 全树 1:1
+    vp.style.removeProperty("--mark-inv");
+  }
+  // 独立 SVG 里 CSS 变量/LOD 不可靠 —— var() 展开为字面(1:1 下补偿=单位缩放), 透明残留清空
+  vp.querySelectorAll(".mark-g, .label-g").forEach(el => {
+    if (el.style.transform) el.style.transform = el.style.transform.replace(/var\(--mark-inv\)/g, "scale(1,1)");
+  });
+  vp.querySelectorAll(".tip-label").forEach(el => { el.style.opacity = ""; el.style.pointerEvents = ""; });
+  vp.querySelectorAll(".node-hot").forEach(el => el.remove());   // 热点无导出意义
+  // 条带 x 取导出态(克隆前 applyView 可能是任意缩放态)
+  vp.querySelectorAll(".strip").forEach(el =>
+    el.setAttribute("x", ((window.__stripsBase || 0) + labelMax + 8 + (+el.dataset.i) * (STRIP_W + STRIP_GAP)).toFixed(1)));
+  const bg = document.createElementNS(SVG_NS, "rect");
+  bg.setAttribute("x", String(box.x)); bg.setAttribute("y", String(box.y));
+  bg.setAttribute("width", String(box.w)); bg.setAttribute("height", String(box.h));
+  bg.setAttribute("fill", getComputedStyle(document.body).getPropertyValue("--bg").trim() || "#fff");
+  svg.insertBefore(bg, svg.firstChild);
+  const st = document.createElementNS(SVG_NS, "style");
+  st.textContent = EXPORT_CSS;
+  svg.insertBefore(st, svg.firstChild);
+  expandCssVars(svg);
+  return new XMLSerializer().serializeToString(svg);
+}
+
+/* 保存：优先系统“另存为”对话框（可选路径）；不支持时回退到浏览器下载。 */
+async function saveBlob(name, blob) {
+  if (window.showSaveFilePicker) {
+    try {
+      const handle = await window.showSaveFilePicker({ suggestedName: name });
+      const writable = await handle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+      return true;
+    } catch (err) {
+      if (err && err.name === "AbortError") return false;
+    }
+  }
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+  return true;
+}
+function downloadText(name, text) {
+  return saveBlob(name, new Blob([text], { type: "text/plain;charset=utf-8" }));
+}
+function rasterize(svgText, scale) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const cv = document.createElement("canvas");
+      cv.width = Math.round(img.width * scale);
+      cv.height = Math.round(img.height * scale);
+      const ctx = cv.getContext("2d");
+      ctx.fillStyle = getComputedStyle(document.body).getPropertyValue("--bg").trim() || "#fff";
+      ctx.fillRect(0, 0, cv.width, cv.height);
+      ctx.drawImage(img, 0, 0, cv.width, cv.height);
+      resolve(cv);
+    };
+    img.onerror = reject;
+    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgText);
+  });
+}
+async function exportPdfVector(svgText, name) {
+  const jspdfNs = window.jspdf || {};
+  const JsPDF = jspdfNs.jsPDF;
+  const converter = window.svg2pdf && (window.svg2pdf.svg2pdf || window.svg2pdf);
+  if (!JsPDF || typeof converter !== "function") {
+    alert("PDF 矢量导出组件未载入，已改为导出 SVG（矢量）。");
+    return saveBlob(name.replace(/\.pdf$/i, ".svg"), new Blob([svgText], { type: "image/svg+xml" }));
+  }
+  const holder = document.createElement("div");
+  holder.style.cssText = "position:fixed;left:-99999px;top:0";
+  holder.innerHTML = svgText;
+  const svgEl = holder.querySelector("svg");
+  document.body.appendChild(holder);
+  try {
+    const w = parseFloat(svgEl.getAttribute("width")) || 800;
+    const h = parseFloat(svgEl.getAttribute("height")) || 600;
+    const pdf = new JsPDF({ orientation: w >= h ? "landscape" : "portrait", unit: "pt", format: [w, h] });
+    await converter(svgEl, pdf, { x: 0, y: 0, width: w, height: h });
+    return await saveBlob(name, pdf.output("blob"));
+  } finally {
+    holder.remove();
+  }
+}
+function placementAnnotations() {
+  const header = ["query_id", "original_id", "supergroup", "nn1", "nn1_dist", "nn2", "nn2_dist", "nn3", "nn3_dist", "nn4", "nn4_dist", "nn5", "nn5_dist"];
+  const rows = [header.join("\t")];
+  for (const q of placed) {
+    const p = q.placement;
+    const cells = [p.query_id, p.original_id || "", p.supergroup || bundle.supergroup || ""];
+    for (let i = 0; i < 5; i++) {
+      const nn = p.neighbors[i];
+      cells.push(nn ? nn[0] : "", nn ? nn[1].toFixed(6) : "");
+    }
+    rows.push(cells.join("\t"));
+  }
+  return rows.join("\n") + "\n";
+}
+
+/* ---- 导出对话框 ---- */
+const exportDialog = $("#exportDlg");
+function openExportDialog(defaultFormat) {
+  $("#expFormat").value = defaultFormat;
+  $("#expName").value = `${(bundle.supergroup || "tree").replace(/[^\w.-]+/g, "_")}_placement.${defaultFormat === "nwk" ? "nwk" : defaultFormat}`;
+  exportDialog.style.display = "flex";
+}
+function closeExportDialog() { exportDialog.style.display = "none"; }
+$("#exportSvg").addEventListener("click", () => openExportDialog("svg"));
+$("#exportPng").addEventListener("click", () => openExportDialog("png"));
+$("#exportPdf").addEventListener("click", () => openExportDialog("pdf"));
+$("#expCancel").addEventListener("click", closeExportDialog);
+exportDialog.addEventListener("click", e => { if (e.target === exportDialog) closeExportDialog(); });
+$("#expConfirm").addEventListener("click", async () => {
+  const format = $("#expFormat").value;
+  const full = $("#expRange").value === "full";
+  const scale = Math.max(1, Math.min(4, parseInt($("#expScale").value, 10) || 2));
+  let name = ($("#expName").value || "tree").trim();
+  closeExportDialog();
+  try {
+    if (format === "nwk") {
+      await downloadText(name.endsWith(".nwk") ? name : name + ".nwk", bundle.backbone_newick || "");
+      return;
+    }
+    if (format === "tsv") {
+      await downloadText(name.endsWith(".tsv") ? name : name + ".tsv", placementAnnotations());
+      return;
+    }
+    const svgText = svgString(full);
+    if (!/\.(svg|png|pdf)$/i.test(name)) name += "." + format;
+    if (format === "svg") { await saveBlob(name, new Blob([svgText], { type: "image/svg+xml" })); return; }
+    if (format === "png") {
+      const canvas = await rasterize(svgText, scale);
+      canvas.toBlob(blob => saveBlob(name, blob), "image/png");
+      return;
+    }
+    await exportPdfVector(svgText, name);
+  } catch (err) {
+    console.error(err);
+    alert("导出失败: " + (err && err.message ? err.message : err));
+  }
+});
+/* 最小 PDF 生成: 单页嵌 JPEG(DCTDecode), 字节级拼装 xref */
+function buildPdfBlob(jpegDataUrl, w, h) {
+  const b64 = jpegDataUrl.split(",")[1];
+  const jpg = atob(b64);
+  const head = "%PDF-1.4\n";
+  const objs = [
+    "<< /Type /Catalog /Pages 2 0 R >>",
+    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+    `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${w} ${h}] /Resources << /XObject << /Im1 5 0 R >> >> /Contents 4 0 R >>`,
+  ];
+  const content = `q ${w} 0 0 ${h} 0 0 cm /Im1 Do Q`;
+  objs.push(`<< /Length ${content.length} >>\nstream\n${content}\nendstream`);
+  const parts = [head];
+  const offsets = [];
+  let pos = head.length;
+  for (let i = 0; i < objs.length; i++) {
+    offsets.push(pos);
+    const body = `${i + 1} 0 obj\n${objs[i]}\nendobj\n`;
+    parts.push(body); pos += body.length;
+  }
+  offsets.push(pos);
+  const obj5Head = `5 0 obj\n<< /Type /XObject /Subtype /Image /Width ${w} /Height ${h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpg.length} >>\nstream\n`;
+  parts.push(obj5Head); pos += obj5Head.length;
+  parts.push(jpg);                                    // 二进制段(latin1 逐字节)
+  pos += jpg.length;
+  const endobj = "\nendstream\nendobj\n";             // ⚠ stream 必须以 endstream 闭合(漏写曾致 PDF 空白)
+  parts.push(endobj); pos += endobj.length;
+  const xref = `xref\n0 6\n0000000000 65535 f \n` +
+    offsets.slice(0, 5).map(o => String(o).padStart(10, "0") + " 00000 n \n").join("");
+  parts.push(xref + `trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${pos}\n%%EOF`);
+  const total = parts.reduce((a, s) => a + s.length, 0);
+  const bytes = new Uint8Array(total);
+  let p = 0;
+  for (const s of parts) { for (let i = 0; i < s.length; i++) bytes[p++] = s.charCodeAt(i) & 0xff; }
+  return new Blob([bytes], { type: "application/pdf" });
+}
+$("#exportPdf").addEventListener("click", () => {
+  const name = askName("pdf"); if (!name) return;
+  renderExportCanvas(cv => {
+    download(name.endsWith(".pdf") ? name : name + ".pdf",
+             buildPdfBlob(cv.toDataURL("image/jpeg", 0.92), cv.width, cv.height));
+  });
+});
+
+/* ================= 状态栏 / 杂项 ================= */
+function updateStatus(msg) {
+  const nq = placed.length;
+  const hit = bundle.truth ? `${placed.filter(q => truthHit(q.placement)).length}/${nq}` : "—";
+  $("#statusbar").innerHTML =
+    `<span>骨架 <b>${bundle.n_backbone}</b> tips</span><span>query <b>${nq}</b></span>` +
+    `<span>折叠段 <b>${collapsed.length}</b></span><span>着色 <b>${{placement:"放置状态",source:"来源",group:"类群"}[colorMode]}</b></span>` +
+    `<span>nn1∈真值 <b>${hit}</b></span>` +
+    (msg ? `<span style="margin-left:auto">${esc(msg)}</span>` : "");
+  clearTimeout(updateStatus._t);
+  if (msg) updateStatus._t = setTimeout(() => updateStatus(), 4000);
+}
+function toastStatus(msg) { updateStatus(msg); }
+
+["colorMode", "focusChk", "padSel", "stripChk", "truthChk"].forEach(id => {
+  $("#" + id).addEventListener("change", () => {
+    const v = $("#colorMode").value;
+    if (v === "placement") { colorMode = "placement"; taxRank = ""; }
+    else { taxRank = v; colorMode = "rank"; }
+    render();
+  });
+});
+$("#resetView").addEventListener("click", resetView);
+$("#midrootBtn").addEventListener("click", () => {
+  rootMode = rootMode === "midpoint" ? "original" : "midpoint";
+  $("#midrootBtn").classList.toggle("on", rootMode === "midpoint");
+  render();
+  fitView();
+  updateStatus(rootMode === "midpoint" ? "已切换中值根(直径中点)" : "已恢复原根");
+});
+
+/* ================= demo/文件接入 ================= */
+const BACKBONES = JSON.parse(document.getElementById("backbone-bundles").textContent);
+const FITCH = JSON.parse(document.getElementById("fitch-bundles").textContent);
+const VIRID = JSON.parse(document.getElementById("virid-bundles").textContent);
+(function initBundleSel() {
+  const sel = $("#bundleSel");
+  const opt = (grp, pfx, map, fmt) =>
+    `<optgroup label="${grp}">` + Object.keys(map).map(k =>
+      `<option value="${pfx}:${esc(k)}">${esc(k)} ${fmt(map[k])}</option>`).join("") + "</optgroup>";
+  sel.innerHTML =
+    (Object.keys(FITCH).length ? opt("LucaPhylo 放置", "fx", FITCH, b => `(${b.n_backbone}+${b.n_query})`) : "") +
+    opt("超群", "vd", VIRID, b => `(${b.n_backbone}+${b.n_query})`);
+  sel.addEventListener("change", () => {
+    const v = sel.value, i = v.indexOf(":"), key = v.slice(i + 1), g = v.slice(0, i);
+    loadBundle(g === "bb" ? BACKBONES[key] : g === "fx" ? FITCH[key] : VIRID[key]);
+  });
+})();
+/* 骨架树模式的 UI 适配: 着色下拉重填为分类等级; 隐藏放置专属控件 */
+function syncModeUI() {
+  const isBB = bundle && bundle.kind === "backbone";
+  const sel = $("#colorMode");
+  if (isBB) {
+    if (!taxRank || !bundle.ranks.includes(taxRank))
+      taxRank = bundle.ranks.includes("Class") ? "Class" : bundle.ranks[Math.min(2, bundle.ranks.length - 1)];
+    sel.innerHTML = `<option value="placement">放置状态</option>` +
+                    bundle.ranks.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join("");
+    sel.value = "placement";
+  } else if (bundle.kind === "virid") {
+    if (!taxRank || !bundle.ranks.includes(taxRank))
+      taxRank = bundle.ranks.includes("Class") ? "Class" : bundle.ranks[Math.min(2, bundle.ranks.length - 1)];
+    sel.innerHTML = `<option value="placement">放置状态</option>` +
+                    bundle.ranks.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join("");
+    sel.value = colorMode;                       // virid 记忆用户选择(等级 or placement)
+  } else {
+    sel.innerHTML = `<option value="placement">放置状态</option>
+      <option value="source">序列来源</option><option value="group">类群标签</option>`;
+    sel.value = colorMode;
+  }
+}
+
+
+(function initLblOpts() {
+  const sync = () => {
+    $("#lblSize").value = labelOpts.size;
+    $("#lblSizeVal").textContent = labelOpts.size;
+    $("#lblFamily").value = labelOpts.family;
+    $("#lblBold").checked = labelOpts.bold;
+    $("#lblItalic").checked = labelOpts.italic;
+    $("#lblScale").checked = labelOpts.scale;
+  };
+  $("#lblSize").addEventListener("input", e => {
+    labelOpts.size = +e.target.value;
+    $("#lblSizeVal").textContent = e.target.value;
+    applyLabelOpts(); render();                    // 不 fitView: 保留用户当前视图
+  });
+  $("#lblFamily").addEventListener("change", e => { labelOpts.family = e.target.value; applyLabelOpts(); render(); });
+  $("#lblBold").addEventListener("change", e => { labelOpts.bold = e.target.checked; applyLabelOpts(); });
+  $("#lblItalic").addEventListener("change", e => { labelOpts.italic = e.target.checked; applyLabelOpts(); });
+  $("#lblScale").addEventListener("change", e => { labelOpts.scale = e.target.checked; applyLabelOpts(); render(); });
+  sync(); applyLabelOpts();
+})();
+
+/* ================= 启动 ================= */
+window.addEventListener("resize", () => render());
+(function boot() {
+  // 全局提示：部分识别序列骨架树尚未就绪（由主流程写入 report-meta）
+  try {
+    const meta = JSON.parse($("#report-meta").textContent || "{}");
+    if (meta.notice) {
+      const el = $("#globalNotice");
+      el.textContent = meta.notice;
+      el.style.display = "";
+    }
+  } catch (err) { /* 提示缺失不影响主功能 */ }
+  const q = new URLSearchParams(location.search).get("bundle");
+  const pick = (map, key) => map && map[key] ? [key, map[key]] : null;
+  const hit = q && (pick(VIRID, q.slice(3)) || pick(FITCH, q.slice(3)) || pick(BACKBONES, q.slice(3)));
+  if (hit) {
+    const sel = $("#bundleSel");
+    if ([...sel.options].some(o => o.value === q)) sel.value = q;
+    loadBundle(hit[1]);
+    return;
+  }
+  const src = Object.keys(VIRID).length ? VIRID : FITCH;
+  loadBundle(src[Object.keys(src)[0]]);
+})();
+</script>
+</body>
+</html>

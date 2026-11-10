@@ -1,0 +1,18 @@
+disease_name_cn,disease_name_en,category,virus_family,virus_genus,pipeline_covered,source,source_date,notes
+传染性非典型肺炎,SARS,乙类,Coronaviridae,Sarbecovirus,yes,传染病防治法2025修订,2025-04-30,SARS-CoV
+新型冠状病毒感染,COVID-19,乙类,Coronaviridae,Sarbecovirus,yes,传染病防治法2025修订,2025-04-30,SARS-CoV-2
+艾滋病,AIDS,乙类,Retroviridae,Lentivirus,no,传染病防治法2025修订,2025-04-30,逆转录病毒 不属于RdRP筛查
+病毒性肝炎,Viral hepatitis,乙类,"Hepadnaviridae; Picornaviridae; Hepeviridae; Flaviviridae",,partial,传染病防治法2025修订,2025-04-30,甲肝戊肝丙肝可筛 乙肝DNA病毒不筛
+脊髓灰质炎,Poliomyelitis,乙类,Picornaviridae,Enterovirus,yes,传染病防治法2025修订,2025-04-30,脊髓灰质炎病毒
+人感染新亚型流感,Human infection with new subtype influenza,乙类,Orthomyxoviridae,Alphainfluenzavirus,yes,传染病防治法2025修订,2025-04-30,原人感染高致病性禽流感
+麻疹,Measles,乙类,Paramyxoviridae,Morbillivirus,yes,传染病防治法2025修订,2025-04-30,麻疹病毒
+流行性出血热,Epidemic hemorrhagic fever,乙类,Hantaviridae,Orthohantavirus,yes,传染病防治法2025修订,2025-04-30,汉坦病毒
+狂犬病,Rabies,乙类,Rhabdoviridae,Lyssavirus,yes,传染病防治法2025修订,2025-04-30,狂犬病毒
+流行性乙型脑炎,Japanese encephalitis,乙类,Flaviviridae,Flavivirus,yes,传染病防治法2025修订,2025-04-30,乙脑病毒
+登革热,Dengue fever,乙类,Flaviviridae,Flavivirus,yes,传染病防治法2025修订,2025-04-30,登革病毒
+猴痘,Mpox,乙类,Poxviridae,Orthopoxvirus,no,传染病防治法2025修订,2025-04-30,DNA病毒 不属于RdRP筛查
+流行性感冒,Influenza,丙类,Orthomyxoviridae,Alphainfluenzavirus; Betainfluenzavirus,yes,传染病防治法2025修订,2025-04-30,流感病毒
+流行性腮腺炎,Mumps,丙类,Paramyxoviridae,Rubulavirus,yes,传染病防治法2025修订,2025-04-30,腮腺炎病毒
+风疹,Rubella,丙类,Togaviridae,Rubivirus,yes,传染病防治法2025修订,2025-04-30,风疹病毒
+急性出血性结膜炎,Acute hemorrhagic conjunctivitis,丙类,Picornaviridae,Enterovirus,yes,传染病防治法2025修订,2025-04-30,肠道病毒70型 柯萨奇A24
+手足口病,Hand foot and mouth disease,丙类,Picornaviridae,Enterovirus,yes,传染病防治法2025修订,2025-04-30,EV71 柯萨奇A16等

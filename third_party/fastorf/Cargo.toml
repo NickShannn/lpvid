@@ -1,0 +1,15 @@
+[package]
+name = "fastorf"
+version = "0.1.0"
+edition = "2021"
+
+# 依赖刻意保持最小 (CODING.md 第 2 条): rayon 并行, flate2 解压 gz;
+# mimalloc 为 2026-10-26 破例: 多线程小对象分配竞争使 64 核只到 2.2x (见 DECISIONS.md)
+[dependencies]
+rayon = "1.10"
+flate2 = "1.0"
+mimalloc = "0.1"
+
+[profile.release]
+lto = true
+codegen-units = 1

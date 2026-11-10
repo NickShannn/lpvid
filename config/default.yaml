@@ -1,0 +1,96 @@
+min_input_aa: 150
+min_analysis_aa: 150
+model_threshold: 0.5
+
+paths:
+  cache_dir: cache
+  assets_dir: assets
+  third_party_dir: third_party
+  runs_dir: runs
+
+environments:
+  lucaphylo: python
+  qc: python
+  rdrp: python
+
+tools:
+  fastorf: third_party/fastorf/bin/fastorf
+  diamond: diamond
+  cd_hit: cd-hit
+  node: node
+
+assets:
+  phylo_root: resources/phylo
+  phylo_base_model: resources/models/lucaphylo/checkpoint-81000
+
+  rdrp_180_db: resources/rdrp/rdrp_reference.dmnd
+  rdrp_180_csv: resources/rdrp/rdrp_reference.csv
+  supergroups_mapping: supergroups_mapping.csv
+
+  refseq_db: resources/blastdb/refseq_protein/refseq_protein.dmnd
+  viral_taxids: resources/blastdb/refseq_protein/TAXID_viruses.txt
+  cellular_taxids: resources/blastdb/refseq_protein/TAXID_cellular.txt
+
+  rrna_ssu: resources/rrna/silva_ssu
+  rrna_lsu: resources/rrna/silva_lsu
+
+  rdrp_model_dir: resources/models/rdrp_detector
+  runtime_lib_dir: runtime/libs
+
+  classifier_pipeline: resources/models/classifier/pipeline
+  classifier_encoder: resources/models/classifier/encoder/checkpoint-18000
+  classifier_model: resources/models/classifier/model/Ref_Tree_Orf_All_orf_tree_processed_Pool_Mean
+
+qc:
+  rrna_deplete: true
+  threads: 16
+
+assembly:
+  min_contig_len: 600
+  threads: 32
+  memory_gb: 64
+
+orf:
+  threads: 32
+
+prefilter:
+  enabled: true
+  evalue: 1.0e-5
+  max_target_seqs: 10
+  pident: 70
+  qcov: 70
+  qa_fraction: 0.01
+  qa_seed: 42
+  threads: 32
+
+detect:
+  rdrp_truncation: 4096
+
+cluster:
+  identity: 0.9
+  coverage: 0.8
+  threads: 16
+
+supergroup:
+  evalue: 1.0e-5
+  max_target_seqs: 10
+  threads: 32
+
+phylo:
+  max_seq_length: 2048
+  batch_size: 8
+  distance_batch_size: 32
+  top_k: 5
+  tree_distance_backend: ete3
+
+abundance:
+  bowtie2_mode: --very-sensitive-local
+  threads: 32
+
+report:
+  formats: [svg, png]
+  dpi: 160
+
+runtime:
+  gpu: auto
+  echo_commands: false

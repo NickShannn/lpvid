@@ -1,0 +1,20 @@
+# 仅用于小规模工程联调，不作为生产科学参数。
+# 生产默认配置仍启用 RefSeq、MIN_AA=150 和 rRNA 去除。
+prefilter:
+  enabled: false
+min_input_aa: 100
+min_analysis_aa: 100
+qc:
+  threads: 4
+  rrna_deplete: false
+assembly:
+  threads: 4
+  memory_gb: 2
+orf:
+  threads: 4
+cluster:
+  threads: 4
+supergroup:
+  threads: 8
+abundance:
+  threads: 4

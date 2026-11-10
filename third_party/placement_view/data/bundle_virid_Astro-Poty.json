@@ -1,0 +1,1863 @@
+{
+  "supergroup": "Astro-Poty",
+  "kind": "virid",
+  "backbone_newick": "(((((((YP_009345903.1_Qinghai_Himalayan_marmot_astrovirus_2_510:0.298938,NC_025346_Rabbit_astrovirus:0.184491):0.0939419,(NC_019028_Astrovirus_MLB3:0.0350196,NC_016155_Astrovirus_MLB2:0.0527859):0.286923):0.100616,YP_009345898.1_Qinghai_Himalayan_marmot_astrovirus_1_512:0.370478):0.0486539,(NC_001943_Human_astrovirus:0.0988795,(NC_022249_Feline_astrovirus_2:0.0338669,NC_025379_Mamastrovirus_3:0.0498866):0.0819211):0.210196):0.0136489,((QTP76096.1_Water_buffalo_astrovirus_Bubalus_bubalis_1307:0.276753,(QII88294.1_White-tailed_deer_astrovirus_Odocoileus_virginianus_1305:0.0343194,(NC_024297_Bovine_astrovirus:0.0571127,NC_023632_Bovine_astrovirus_B170:0.0749255):0.0245718):0.115741):0.207324,((YP_009664787.1_Mamastrovirus_18_816:0.347915,(((QPI69528.2_Feline_astrovirus_3_Felis_catus_519:0.202689,(NC_019494_Porcine_astrovirus_3:0.23144,(NC_024472_Human_astrovirus_BF34:0.128879,((NC_013060_Astrovirus_VA1:0.0693675,NC_019026_Astrovirus_VA3:0.0959369):0.095293,(NC_019027_Astrovirus_VA4:0.108332,NC_018669_Astrovirus_VA2:0.105821):0.0418709):0.0396248):0.044986):0.0514098):0.0439598,NC_004579_Mink_astrovirus:0.252727):0.0238756,NC_002469_Ovine_astrovirus:0.263716):0.124908):0.135765,(QBJ04608.1_Tasmanian_devil-associated_astrovirus_1_Sarcophilus_harrisii_491:0.392659,(((((((Rayfin_XQTMC51418_Wenling_bighead_beaked_sandfish_astrovirus_6336bp:0.939432,(Jawless_QSMS18873_Dongbei_arctic_lamprey_astrovirus_2_7642bp:0.483012,Jawless_QSMS17426_Dongbei_arctic_lamprey_astrovirus_4_7513bp:0.312486):0.133627):0.252818,((Rayfin_XYHYC192174_Wenling_rattails_astrovirus_4_7198bp:0.24525,Rayfin_XYHYC191403_Wenling_rattails_astrovirus_1_7538bp:0.168145):0.371195,((Jawless_QSMC2427_Dongbei_arctic_lamprey_astrovirus_3_6555bp:0.790762,Rayfin_XQTMC49337_Wenling_longspine_snipefish_astrovirus_7199bp:0.596616):0.136877,(Rayfin_XDXMC10209_Wenling_plagiopsetta_astrovirus_6656bp:0.287384,Rayfin_XYXMC57263_Yancheng_grey_stingfish_astrovirus_6774bp:0.304839):0.377697):0.112402):0.16722):0.252277,(((((Amphibia_WHHM73969_Wuhan_asiatic_toad_astrovirus_7012bp:0.309944,((((Reptile_LPWC210211_Yili_teratoscincus_roborowskii_astrovirus_7632bp:0.321362,(Reptile_GXSXC128985_Guangxi_changeable_lizard_astrovirus_7832bp:0.337079,Reptile_LPSF9635_Guangdong_chinese_water_snake_astrovirus_6919bp:0.51212):0.0736429):0.0541864,Amphibia_DFRYG3979V1_Zhejiang_chinese_fire_belly_newt_astrovirus_1_7416bp:0.393395):0.0730949,Amphibia_BHNG3698_Fujian_spotted_paddle-tail_newt_astrovirus_7490bp:0.382948):0.0283783,(Amphibia_HJWCGF4813_Hainan_marbled_pigmy_frog_astrovirus_1_6988bp:0.237672,Amphibia_GDSWC170753_Beihai_tree_frog_astrovirus_6979bp:0.320389):0.121407):0.0647062):0.278765,(Cartilaginous_NHYJC32427_Nanhai_ghost_shark_astrovirus_1_3337bp:0.412307,Rayfin_LXMC182963_Beihai_cephalopholis_spiloparaea_astrovirus_6092bp:0.706343):0.405785):0.212757,Rayfin_DSYS1394_Wuhan_japanese_halfbeak_astrovirus_3611bp:0.644016):0.0844743,(((Cartilaginous_RGYQSMGReov43317_Wenzhou_pacific_spadenose_shark_astrovirus_2_7089bp:0.660913,Cartilaginous_RBCSC17455_Wenling_japanese_topeshark_astrovirus_7099bp:0.655271):0.244944,Cartilaginous_NHYJC33085_Nanhai_ghost_shark_astrovirus_2_3478bp:0.899803):0.409873,Rayfin_YXMC112999_Wenling_pterygotrigla_hemisticta_astrovirus_6230bp:0.946686):0.13128):0.200384,(CJLX30757_Changjiang_astro-like_virus:1.32361,(((WGML136555_Hubei_astro-like_virus:1.45977,SZmix32467_Hubei_leech_virus_1:1.10554):0.341443,((Rayfin_GDDSYS282_Guangdong_catfish_astro-like_virus_9512bp:0.419825,(Rayfin_BHFishC188159_Beihai_mudskipper_astro-like_virus_10377bp:0.468284,Rayfin_DSYS3171_Wuhan_astro-like_virus_9129bp:0.323949):0.115894):0.421164,(Lungfish_FZFYG149406_Western_African_lungfish_astro-like_virus_13169bp:0.593353,((Rayfin_XLXMS83193_Wenling_gobies_fish_astro-like_virus_11033bp:0.540449,Amphibia_LPWC187377_Hainan_astro-like_virus_2_5204bp:0.336609):0.136899,(Reptile_WHWGC149849_Chinese_broad-headed_pond_turtle_astro-like_virus_9296bp:0.781144,Reptile_LPXYF118785_Hainan_astro-like_virus_1_13532bp:0.390137):0.122434):0.197057):0.623706):0.628552):0.162118,((QMP81800.1_Grapevine-associated_poty-like_virus_1_Vitis_vinifera_3568:0.791185,(Poty_NP_659025_Oat_mosaic_virus:0.494728,(UTQ50668.1_Mentha_macluravirus_1_Mentha_x_piperita_2630:0.207553,(Poty_YP_006590058_Chinese_yam_necrotic_mosaic_virus:0.173557,YP_010086847.1_Alpinia_oxyphylla_mosaic_virus_2626:0.233037):0.0810036):0.145406):0.391862):0.233204,((QLC36605.1_Stylosanthes_mosaic-associated_virus_1_Stylosanthes_guianensis_2960:0.514048,(YP_010087632.1_Costus_stripe_mosaic_virus_3046:0.221216,(((QVN46485.1_Polygonatum_kingianum_virus_5_Polygonatum_kingianum_3093:0.172522,Poty_NP_056867_Tobacco_vein_mottling_virus:0.175986):0.0646627,(Poty_NP_871002_Onion_yellow_dwarf_virus:0.311954,YP_010087797.1_Noni_mosaic_virus_3077:0.212139):0.0358299):0.05089,(Poty_NP_954611_Beet_mosaic_virus:0.20118,YP_010087230.1_Dendrobium_chlorotic_mosaic_virus_3189:0.308813):0.0858595):0.0999516):0.226783):0.158011,(Poty_NP_612585_Brome_streak_mosaic_virus:0.531102,(Poty_YP_001788991_Squash_vein_yellowing_virus:0.368192,YP_010086861.1_Passiflora_edulis_symptomless_virus_3173:0.336358):0.156199):0.178961):0.103234):1.28741):0.426524):0.13367):0.293306):0.0651571,(Rayfin_XYHYC190343_Wenling_rattails_astrovirus_5_6822bp:0.392222,(Rayfin_YXMC64648_Wenling_lepidotrigla_astrovirus_7426bp:0.15637,Rayfin_XLXMC35036_Wenling_yellow-striped_sandperch_astrovirus_7417bp:0.125699):0.667734):0.270201):0.111892,QBZ38214.1_European_roller_astrovirus_Coracias_garrulus_401:0.573849):0.191291,((Amphibia_GDSWC169064_Beihai_tree_frog_astrovirus_5247bp:0.381725,(Amphibia_DFRYG3998_Zhejiang_chinese_fire_belly_newt_astrovirus_2_5038bp:0.195673,(Reptile_LPXYC178500_Hainan_oriental_leaf-toed_gecko_astrovirus_2_4327bp:0.176792,Reptile_LPXYC174317_Hainan_oriental_leaf-toed_gecko_astrovirus_1_7126bp:0.143316):0.120913):0.208549):0.162097,((APA19801.1_Avian_astrovirus_1471:0.218481,QCO31422.1_Passerine_astrovirus_1:0.263264):0.100236,(NC_003790_Chicken_astrovirus:0.439056,(NC_002470_Turkey_astrovirus:0.350918,(NC_005790_Turkey_astrovirus_2:0.15042,NC_012437_Duck_astrovirus:0.162822):0.132894):0.0739571):0.114459):0.0723497):0.126737):0.236047,(NC_015935_Mouse_astrovirus:0.263792,YP_009664783.1_Bat_astrovirus_Tm_Guangxi_LD77_2007_470:0.168467):0.17735):0.0503134):0.0479156):0.161404):0.0411763):0.127915,NC_018702_Murine_astrovirus:0.192562):0.0504917,UWK09061.1_Gerbil_astrovirus_Meriones_unguiculatus_502:0.179475,(NC_016896_Astrovirus_wild_boar:0.037953,NC_023675_Porcine_astrovirus_4:0.00994539):0.152842):0;",
+  "n_backbone": 94,
+  "n_query": 10,
+  "placements": [
+    {
+      "query_id": "Amphibia_HKCCC7872_Hainan_black-spectacled_toad_astrovirus_2_7476bp",
+      "neighbors": [
+        [
+          "Amphibia_DFRYG3998_Zhejiang_chinese_fire_belly_newt_astrovirus_2_5038bp",
+          1.137491,
+          0.224527
+        ],
+        [
+          "Amphibia_GDSWC169064_Beihai_tree_frog_astrovirus_5247bp",
+          1.244407,
+          0.20176
+        ],
+        [
+          "APA19801.1_Avian_astrovirus_1471",
+          1.272253,
+          0.19622
+        ],
+        [
+          "Reptile_LPXYC178500_Hainan_oriental_leaf-toed_gecko_astrovirus_2_4327bp",
+          1.303883,
+          0.19011
+        ],
+        [
+          "Reptile_LPXYC174317_Hainan_oriental_leaf-toed_gecko_astrovirus_1_7126bp",
+          1.318337,
+          0.187383
+        ]
+      ],
+      "confidence": 0.0449,
+      "pendant": 0.568745
+    },
+    {
+      "query_id": "Cartilaginous_DTHH2075_Dongtou_red_stingray_astrovirus_7168bp",
+      "neighbors": [
+        [
+          "Rayfin_DSYS1394_Wuhan_japanese_halfbeak_astrovirus_3611bp",
+          2.064432,
+          0.208721
+        ],
+        [
+          "Amphibia_GDSWC170753_Beihai_tree_frog_astrovirus_6979bp",
+          2.073841,
+          0.206766
+        ],
+        [
+          "Amphibia_WHHM73969_Wuhan_asiatic_toad_astrovirus_7012bp",
+          2.080774,
+          0.205338
+        ],
+        [
+          "Amphibia_BHNG3698_Fujian_spotted_paddle-tail_newt_astrovirus_7490bp",
+          2.13078,
+          0.195322
+        ],
+        [
+          "Cartilaginous_RGYQSMGReov43317_Wenzhou_pacific_spadenose_shark_astrovirus_2_7089bp",
+          2.191287,
+          0.183853
+        ]
+      ],
+      "confidence": 0.0023,
+      "pendant": 1.032216
+    },
+    {
+      "query_id": "NC_011400_Astrovirus_MLB1",
+      "neighbors": [
+        [
+          "NC_019028_Astrovirus_MLB3",
+          0.634014,
+          0.234042
+        ],
+        [
+          "NC_016155_Astrovirus_MLB2",
+          0.717274,
+          0.215345
+        ],
+        [
+          "NC_025346_Rabbit_astrovirus",
+          0.859533,
+          0.18679
+        ],
+        [
+          "NC_001943_Human_astrovirus",
+          0.885643,
+          0.181976
+        ],
+        [
+          "NC_016896_Astrovirus_wild_boar",
+          0.886348,
+          0.181847
+        ]
+      ],
+      "confidence": 0.0616,
+      "pendant": 0.317007
+    },
+    {
+      "query_id": "NC_023636_Porcine_astrovirus_5",
+      "neighbors": [
+        [
+          "YP_009664783.1_Bat_astrovirus_Tm_Guangxi_LD77_2007_470",
+          1.586744,
+          0.204559
+        ],
+        [
+          "QCO31422.1_Passerine_astrovirus_1",
+          1.594416,
+          0.202996
+        ],
+        [
+          "QBZ38214.1_European_roller_astrovirus_Coracias_garrulus_401",
+          1.608338,
+          0.200189
+        ],
+        [
+          "APA19801.1_Avian_astrovirus_1471",
+          1.626016,
+          0.196682
+        ],
+        [
+          "QBJ04608.1_Tasmanian_devil-associated_astrovirus_1_Sarcophilus_harrisii_491",
+          1.631665,
+          0.195574
+        ]
+      ],
+      "confidence": 0.0024,
+      "pendant": 0.793372
+    },
+    {
+      "query_id": "NC_023674_Porcine_astrovirus_2",
+      "neighbors": [
+        [
+          "NC_024297_Bovine_astrovirus",
+          0.902592,
+          0.211276
+        ],
+        [
+          "NC_023632_Bovine_astrovirus_B170",
+          0.916257,
+          0.208409
+        ],
+        [
+          "NC_022249_Feline_astrovirus_2",
+          0.978914,
+          0.195751
+        ],
+        [
+          "NC_001943_Human_astrovirus",
+          0.986259,
+          0.194319
+        ],
+        [
+          "NC_023675_Porcine_astrovirus_4",
+          1.007451,
+          0.190245
+        ]
+      ],
+      "confidence": 0.0075,
+      "pendant": 0.451296
+    },
+    {
+      "query_id": "NC_024498_Bovine_astrovirus",
+      "neighbors": [
+        [
+          "NC_002469_Ovine_astrovirus",
+          0.989003,
+          0.205396
+        ],
+        [
+          "NC_013060_Astrovirus_VA1",
+          1.009918,
+          0.201145
+        ],
+        [
+          "NC_018669_Astrovirus_VA2",
+          1.018971,
+          0.199332
+        ],
+        [
+          "YP_009664783.1_Bat_astrovirus_Tm_Guangxi_LD77_2007_470",
+          1.030018,
+          0.197142
+        ],
+        [
+          "NC_018702_Murine_astrovirus",
+          1.030816,
+          0.196985
+        ]
+      ],
+      "confidence": 0.0105,
+      "pendant": 0.494501
+    },
+    {
+      "query_id": "NC_024701_Feline_astrovirus_D1",
+      "neighbors": [
+        [
+          "QPI69528.2_Feline_astrovirus_3_Felis_catus_519",
+          0.743084,
+          0.205464
+        ],
+        [
+          "NC_004579_Mink_astrovirus",
+          0.748657,
+          0.204322
+        ],
+        [
+          "NC_002469_Ovine_astrovirus",
+          0.759541,
+          0.20211
+        ],
+        [
+          "NC_023632_Bovine_astrovirus_B170",
+          0.798471,
+          0.194393
+        ],
+        [
+          "NC_016896_Astrovirus_wild_boar",
+          0.801991,
+          0.193711
+        ]
+      ],
+      "confidence": 0.0037,
+      "pendant": 0.371542
+    },
+    {
+      "query_id": "Rayfin_XDXMC21452_Wenling_crossorhombus_astrovirus_2_6973bp",
+      "neighbors": [
+        [
+          "Rayfin_XLXMC35036_Wenling_yellow-striped_sandperch_astrovirus_7417bp",
+          1.048,
+          0.297466
+        ],
+        [
+          "Rayfin_YXMC64648_Wenling_lepidotrigla_astrovirus_7426bp",
+          1.2244,
+          0.249361
+        ],
+        [
+          "Rayfin_XYHYC190343_Wenling_rattails_astrovirus_5_6822bp",
+          1.582478,
+          0.174308
+        ],
+        [
+          "QBZ38214.1_European_roller_astrovirus_Coracias_garrulus_401",
+          1.664289,
+          0.160615
+        ],
+        [
+          "QCO31422.1_Passerine_astrovirus_1",
+          1.9705,
+          0.11825
+        ]
+      ],
+      "confidence": 0.0776,
+      "pendant": 0.524
+    },
+    {
+      "query_id": "Reptile_ZGLXR62176_Guangdong_chinese_water_skink_astrovirus_6683bp",
+      "neighbors": [
+        [
+          "Amphibia_WHHM73969_Wuhan_asiatic_toad_astrovirus_7012bp",
+          1.731414,
+          0.212019
+        ],
+        [
+          "Reptile_LPWC210211_Yili_teratoscincus_roborowskii_astrovirus_7632bp",
+          1.737076,
+          0.210822
+        ],
+        [
+          "Reptile_GXSXC128985_Guangxi_changeable_lizard_astrovirus_7832bp",
+          1.794857,
+          0.198985
+        ],
+        [
+          "Amphibia_HJWCGF4813_Hainan_marbled_pigmy_frog_astrovirus_1_6988bp",
+          1.806307,
+          0.19672
+        ],
+        [
+          "Amphibia_GDSWC170753_Beihai_tree_frog_astrovirus_6979bp",
+          1.887086,
+          0.181454
+        ]
+      ],
+      "confidence": 0.0016,
+      "pendant": 0.865707
+    },
+    {
+      "query_id": "UMO75842.1_Sichuan_mamastrovirus_12_1327",
+      "neighbors": [
+        [
+          "QII88294.1_White-tailed_deer_astrovirus_Odocoileus_virginianus_1305",
+          0.87191,
+          0.21211
+        ],
+        [
+          "NC_023675_Porcine_astrovirus_4",
+          0.903114,
+          0.205594
+        ],
+        [
+          "NC_025379_Mamastrovirus_3",
+          0.931283,
+          0.199883
+        ],
+        [
+          "NC_016896_Astrovirus_wild_boar",
+          0.966988,
+          0.192872
+        ],
+        [
+          "QTP76096.1_Water_buffalo_astrovirus_Bubalus_bubalis_1307",
+          0.984419,
+          0.189541
+        ]
+      ],
+      "confidence": 0.0176,
+      "pendant": 0.435955
+    }
+  ],
+  "truth": {
+    "Amphibia_HKCCC7872_Hainan_black-spectacled_toad_astrovirus_2_7476bp": [
+      "Amphibia_DFRYG3998_Zhejiang_chinese_fire_belly_newt_astrovirus_2_5038bp",
+      "Reptile_LPXYC178500_Hainan_oriental_leaf-toed_gecko_astrovirus_2_4327bp",
+      "Reptile_LPXYC174317_Hainan_oriental_leaf-toed_gecko_astrovirus_1_7126bp"
+    ],
+    "Cartilaginous_DTHH2075_Dongtou_red_stingray_astrovirus_7168bp": [
+      "Cartilaginous_RBCSC17455_Wenling_japanese_topeshark_astrovirus_7099bp"
+    ],
+    "NC_011400_Astrovirus_MLB1": [
+      "NC_019028_Astrovirus_MLB3",
+      "NC_016155_Astrovirus_MLB2"
+    ],
+    "NC_023636_Porcine_astrovirus_5": [
+      "YP_009664787.1_Mamastrovirus_18_816",
+      "NC_002469_Ovine_astrovirus",
+      "NC_024498_Bovine_astrovirus",
+      "NC_004579_Mink_astrovirus",
+      "NC_024701_Feline_astrovirus_D1"
+    ],
+    "NC_023674_Porcine_astrovirus_2": [
+      "QII88294.1_White-tailed_deer_astrovirus_Odocoileus_virginianus_1305",
+      "NC_024297_Bovine_astrovirus",
+      "NC_023632_Bovine_astrovirus_B170"
+    ],
+    "NC_024498_Bovine_astrovirus": [
+      "NC_002469_Ovine_astrovirus"
+    ],
+    "NC_024701_Feline_astrovirus_D1": [
+      "NC_004579_Mink_astrovirus"
+    ],
+    "Rayfin_XDXMC21452_Wenling_crossorhombus_astrovirus_2_6973bp": [
+      "Rayfin_YXMC64648_Wenling_lepidotrigla_astrovirus_7426bp",
+      "Rayfin_XLXMC35036_Wenling_yellow-striped_sandperch_astrovirus_7417bp"
+    ],
+    "Reptile_ZGLXR62176_Guangdong_chinese_water_skink_astrovirus_6683bp": [
+      "Amphibia_DFRYG3979V1_Zhejiang_chinese_fire_belly_newt_astrovirus_1_7416bp"
+    ],
+    "UMO75842.1_Sichuan_mamastrovirus_12_1327": [
+      "NC_016896_Astrovirus_wild_boar",
+      "NC_023675_Porcine_astrovirus_4"
+    ]
+  },
+  "metrics": {},
+  "taxonomy": {
+    "Amphibia_BHNG3698_Fujian_spotted_paddle-tail_newt_astrovirus_7490bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Amphibia_DFRYG3979V1_Zhejiang_chinese_fire_belly_newt_astrovirus_1_7416bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Amphibia_DFRYG3998_Zhejiang_chinese_fire_belly_newt_astrovirus_2_5038bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Amphibia_GDSWC169064_Beihai_tree_frog_astrovirus_5247bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Amphibia_GDSWC170753_Beihai_tree_frog_astrovirus_6979bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Amphibia_HJWCGF4813_Hainan_marbled_pigmy_frog_astrovirus_1_6988bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Amphibia_HKCCC7872_Hainan_black-spectacled_toad_astrovirus_2_7476bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Amphibia_LPWC187377_Hainan_astro-like_virus_2_5204bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Amphibia_WHHM73969_Wuhan_asiatic_toad_astrovirus_7012bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "APA19801.1_Avian_astrovirus_1471": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Cartilaginous_DTHH2075_Dongtou_red_stingray_astrovirus_7168bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Cartilaginous_NHYJC32427_Nanhai_ghost_shark_astrovirus_1_3337bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Cartilaginous_NHYJC33085_Nanhai_ghost_shark_astrovirus_2_3478bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Cartilaginous_RBCSC17455_Wenling_japanese_topeshark_astrovirus_7099bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Cartilaginous_RGYQSMGReov43317_Wenzhou_pacific_spadenose_shark_astrovirus_2_7089bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "CJLX30757_Changjiang_astro-like_virus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Jawless_QSMC2427_Dongbei_arctic_lamprey_astrovirus_3_6555bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Jawless_QSMS17426_Dongbei_arctic_lamprey_astrovirus_4_7513bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Jawless_QSMS18873_Dongbei_arctic_lamprey_astrovirus_2_7642bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Lungfish_FZFYG149406_Western_African_lungfish_astro-like_virus_13169bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "QBZ38214.1_European_roller_astrovirus_Coracias_garrulus_401": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "QCO31422.1_Passerine_astrovirus_1": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_BHFishC188159_Beihai_mudskipper_astro-like_virus_10377bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_DSYS1394_Wuhan_japanese_halfbeak_astrovirus_3611bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_DSYS3171_Wuhan_astro-like_virus_9129bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_GDDSYS282_Guangdong_catfish_astro-like_virus_9512bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_LXMC182963_Beihai_cephalopholis_spiloparaea_astrovirus_6092bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_XDXMC10209_Wenling_plagiopsetta_astrovirus_6656bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_XDXMC21452_Wenling_crossorhombus_astrovirus_2_6973bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_XLXMC35036_Wenling_yellow-striped_sandperch_astrovirus_7417bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_XLXMS83193_Wenling_gobies_fish_astro-like_virus_11033bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_XQTMC49337_Wenling_longspine_snipefish_astrovirus_7199bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_XQTMC51418_Wenling_bighead_beaked_sandfish_astrovirus_6336bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_XYHYC190343_Wenling_rattails_astrovirus_5_6822bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_XYHYC191403_Wenling_rattails_astrovirus_1_7538bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_XYHYC192174_Wenling_rattails_astrovirus_4_7198bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_XYXMC57263_Yancheng_grey_stingfish_astrovirus_6774bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_YXMC112999_Wenling_pterygotrigla_hemisticta_astrovirus_6230bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Rayfin_YXMC64648_Wenling_lepidotrigla_astrovirus_7426bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Reptile_GXSXC128985_Guangxi_changeable_lizard_astrovirus_7832bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Reptile_LPSF9635_Guangdong_chinese_water_snake_astrovirus_6919bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Reptile_LPWC210211_Yili_teratoscincus_roborowskii_astrovirus_7632bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Reptile_LPXYC174317_Hainan_oriental_leaf-toed_gecko_astrovirus_1_7126bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Reptile_LPXYC178500_Hainan_oriental_leaf-toed_gecko_astrovirus_2_4327bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Reptile_LPXYF118785_Hainan_astro-like_virus_1_13532bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Reptile_WHWGC149849_Chinese_broad-headed_pond_turtle_astro-like_virus_9296bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "Reptile_ZGLXR62176_Guangdong_chinese_water_skink_astrovirus_6683bp": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae"
+    },
+    "NC_002470_Turkey_astrovirus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Avastrovirus",
+      "Species": "Avastrovirus 1"
+    },
+    "NC_003790_Chicken_astrovirus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Avastrovirus",
+      "Species": "Avastrovirus 2"
+    },
+    "NC_005790_Turkey_astrovirus_2": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Avastrovirus",
+      "Species": "Avastrovirus 3"
+    },
+    "NC_012437_Duck_astrovirus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Avastrovirus"
+    },
+    "NC_001943_Human_astrovirus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus",
+      "Species": "Mamastrovirus 1"
+    },
+    "NC_002469_Ovine_astrovirus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus",
+      "Species": "Mamastrovirus 13"
+    },
+    "NC_004579_Mink_astrovirus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus",
+      "Species": "Mamastrovirus 10"
+    },
+    "NC_011400_Astrovirus_MLB1": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus",
+      "Species": "Mamastrovirus 6"
+    },
+    "NC_013060_Astrovirus_VA1": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus",
+      "Species": "Mamastrovirus 9"
+    },
+    "NC_015935_Mouse_astrovirus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_016155_Astrovirus_MLB2": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_016896_Astrovirus_wild_boar": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_018669_Astrovirus_VA2": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_018702_Murine_astrovirus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_019026_Astrovirus_VA3": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_019027_Astrovirus_VA4": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_019028_Astrovirus_MLB3": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_019494_Porcine_astrovirus_3": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_022249_Feline_astrovirus_2": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_023632_Bovine_astrovirus_B170": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_023636_Porcine_astrovirus_5": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_023674_Porcine_astrovirus_2": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_023675_Porcine_astrovirus_4": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_024297_Bovine_astrovirus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_024472_Human_astrovirus_BF34": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_024498_Bovine_astrovirus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_024701_Feline_astrovirus_D1": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus",
+      "Species": "Mamastrovirus 2"
+    },
+    "NC_025346_Rabbit_astrovirus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "NC_025379_Mamastrovirus_3": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus",
+      "Species": "Mamastrovirus 3"
+    },
+    "QBJ04608.1_Tasmanian_devil-associated_astrovirus_1_Sarcophilus_harrisii_491": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "QII88294.1_White-tailed_deer_astrovirus_Odocoileus_virginianus_1305": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "QPI69528.2_Feline_astrovirus_3_Felis_catus_519": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "QTP76096.1_Water_buffalo_astrovirus_Bubalus_bubalis_1307": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "UMO75842.1_Sichuan_mamastrovirus_12_1327": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "UWK09061.1_Gerbil_astrovirus_Meriones_unguiculatus_502": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "YP_009345898.1_Qinghai_Himalayan_marmot_astrovirus_1_512": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "YP_009345903.1_Qinghai_Himalayan_marmot_astrovirus_2_510": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus"
+    },
+    "YP_009664783.1_Bat_astrovirus_Tm_Guangxi_LD77_2007_470": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus",
+      "Species": "Mamastrovirus 15"
+    },
+    "YP_009664787.1_Mamastrovirus_18_816": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Stellavirales",
+      "Family": "Astroviridae",
+      "Genus": "Mamastrovirus",
+      "Species": "Mamastrovirus 18"
+    },
+    "YP_010087797.1_Noni_mosaic_virus_3077": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Potyvirus",
+      "Species": "Noni mosaic virus"
+    },
+    "YP_010087632.1_Costus_stripe_mosaic_virus_3046": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Potyvirus",
+      "Species": "Costus stripe mosaic virus"
+    },
+    "YP_010087230.1_Dendrobium_chlorotic_mosaic_virus_3189": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Potyvirus",
+      "Species": "Dendrobium chlorotic mosaic virus"
+    },
+    "Poty_NP_954611_Beet_mosaic_virus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Potyvirus",
+      "Species": "Beet mosaic virus"
+    },
+    "Poty_NP_871002_Onion_yellow_dwarf_virus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Potyvirus",
+      "Species": "Onion yellow dwarf virus"
+    },
+    "Poty_NP_056867_Tobacco_vein_mottling_virus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Potyvirus",
+      "Species": "Tobacco vein mottling virus"
+    },
+    "YP_010086861.1_Passiflora_edulis_symptomless_virus_3173": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Roymovirus",
+      "Species": "Passiflora edulis symptomless virus"
+    },
+    "YP_010086847.1_Alpinia_oxyphylla_mosaic_virus_2626": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Macluravirus",
+      "Species": "Alpinia oxyphylla mosaic virus"
+    },
+    "UTQ50668.1_Mentha_macluravirus_1_Mentha_x_piperita_2630": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Macluravirus"
+    },
+    "Poty_YP_006590058_Chinese_yam_necrotic_mosaic_virus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Macluravirus",
+      "Species": "Chinese yam necrotic mosaic virus"
+    },
+    "QVN46485.1_Polygonatum_kingianum_virus_5_Polygonatum_kingianum_3093": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Potyvirus"
+    },
+    "QMP81800.1_Grapevine-associated_poty-like_virus_1_Vitis_vinifera_3568": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae"
+    },
+    "QLC36605.1_Stylosanthes_mosaic-associated_virus_1_Stylosanthes_guianensis_2960": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae"
+    },
+    "Poty_YP_001788991_Squash_vein_yellowing_virus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Ipomovirus",
+      "Species": "Squash vein yellowing virus"
+    },
+    "Poty_NP_659025_Oat_mosaic_virus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Bymovirus",
+      "Species": "Oat mosaic virus"
+    },
+    "Poty_NP_612585_Brome_streak_mosaic_virus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes",
+      "Order": "Patatavirales",
+      "Family": "Potyviridae",
+      "Genus": "Tritimovirus",
+      "Species": "Brome streak mosaic virus"
+    },
+    "SZmix32467_Hubei_leech_virus_1": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes"
+    },
+    "WGML136555_Hubei_astro-like_virus": {
+      "Realm": "Riboviria",
+      "Kingdom": "Orthornavirae",
+      "Phylum": "Pisuviricota",
+      "Class": "Stelpaviricetes"
+    }
+  },
+  "host_marks": {
+    "Amphibia_BHNG3698_Fujian_spotted_paddle-tail_newt_astrovirus_7490bp": [
+      0,
+      1,
+      0
+    ],
+    "Amphibia_DFRYG3979V1_Zhejiang_chinese_fire_belly_newt_astrovirus_1_7416bp": [
+      0,
+      1,
+      0
+    ],
+    "Amphibia_DFRYG3998_Zhejiang_chinese_fire_belly_newt_astrovirus_2_5038bp": [
+      0,
+      1,
+      0
+    ],
+    "Amphibia_GDSWC169064_Beihai_tree_frog_astrovirus_5247bp": [
+      0,
+      1,
+      0
+    ],
+    "Amphibia_GDSWC170753_Beihai_tree_frog_astrovirus_6979bp": [
+      0,
+      1,
+      0
+    ],
+    "Amphibia_HJWCGF4813_Hainan_marbled_pigmy_frog_astrovirus_1_6988bp": [
+      0,
+      1,
+      0
+    ],
+    "Amphibia_HKCCC7872_Hainan_black-spectacled_toad_astrovirus_2_7476bp": [
+      0,
+      1,
+      0
+    ],
+    "Amphibia_LPWC187377_Hainan_astro-like_virus_2_5204bp": [
+      0,
+      1,
+      0
+    ],
+    "Amphibia_WHHM73969_Wuhan_asiatic_toad_astrovirus_7012bp": [
+      0,
+      1,
+      0
+    ],
+    "APA19801.1_Avian_astrovirus_1471": [
+      0,
+      1,
+      0
+    ],
+    "Cartilaginous_DTHH2075_Dongtou_red_stingray_astrovirus_7168bp": [
+      0,
+      1,
+      0
+    ],
+    "Cartilaginous_NHYJC32427_Nanhai_ghost_shark_astrovirus_1_3337bp": [
+      0,
+      1,
+      0
+    ],
+    "Cartilaginous_NHYJC33085_Nanhai_ghost_shark_astrovirus_2_3478bp": [
+      0,
+      1,
+      0
+    ],
+    "Cartilaginous_RBCSC17455_Wenling_japanese_topeshark_astrovirus_7099bp": [
+      0,
+      1,
+      0
+    ],
+    "Cartilaginous_RGYQSMGReov43317_Wenzhou_pacific_spadenose_shark_astrovirus_2_7089bp": [
+      0,
+      1,
+      0
+    ],
+    "CJLX30757_Changjiang_astro-like_virus": [
+      0,
+      1,
+      0
+    ],
+    "Jawless_QSMC2427_Dongbei_arctic_lamprey_astrovirus_3_6555bp": [
+      0,
+      1,
+      0
+    ],
+    "Jawless_QSMS17426_Dongbei_arctic_lamprey_astrovirus_4_7513bp": [
+      0,
+      1,
+      0
+    ],
+    "Jawless_QSMS18873_Dongbei_arctic_lamprey_astrovirus_2_7642bp": [
+      0,
+      1,
+      0
+    ],
+    "Lungfish_FZFYG149406_Western_African_lungfish_astro-like_virus_13169bp": [
+      0,
+      1,
+      0
+    ],
+    "QBZ38214.1_European_roller_astrovirus_Coracias_garrulus_401": [
+      0,
+      1,
+      0
+    ],
+    "QCO31422.1_Passerine_astrovirus_1": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_BHFishC188159_Beihai_mudskipper_astro-like_virus_10377bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_DSYS1394_Wuhan_japanese_halfbeak_astrovirus_3611bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_DSYS3171_Wuhan_astro-like_virus_9129bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_GDDSYS282_Guangdong_catfish_astro-like_virus_9512bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_LXMC182963_Beihai_cephalopholis_spiloparaea_astrovirus_6092bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_XDXMC10209_Wenling_plagiopsetta_astrovirus_6656bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_XDXMC21452_Wenling_crossorhombus_astrovirus_2_6973bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_XLXMC35036_Wenling_yellow-striped_sandperch_astrovirus_7417bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_XLXMS83193_Wenling_gobies_fish_astro-like_virus_11033bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_XQTMC49337_Wenling_longspine_snipefish_astrovirus_7199bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_XQTMC51418_Wenling_bighead_beaked_sandfish_astrovirus_6336bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_XYHYC190343_Wenling_rattails_astrovirus_5_6822bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_XYHYC191403_Wenling_rattails_astrovirus_1_7538bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_XYHYC192174_Wenling_rattails_astrovirus_4_7198bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_XYXMC57263_Yancheng_grey_stingfish_astrovirus_6774bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_YXMC112999_Wenling_pterygotrigla_hemisticta_astrovirus_6230bp": [
+      0,
+      1,
+      0
+    ],
+    "Rayfin_YXMC64648_Wenling_lepidotrigla_astrovirus_7426bp": [
+      0,
+      1,
+      0
+    ],
+    "Reptile_GXSXC128985_Guangxi_changeable_lizard_astrovirus_7832bp": [
+      0,
+      1,
+      0
+    ],
+    "Reptile_LPSF9635_Guangdong_chinese_water_snake_astrovirus_6919bp": [
+      0,
+      1,
+      0
+    ],
+    "Reptile_LPWC210211_Yili_teratoscincus_roborowskii_astrovirus_7632bp": [
+      0,
+      1,
+      0
+    ],
+    "Reptile_LPXYC174317_Hainan_oriental_leaf-toed_gecko_astrovirus_1_7126bp": [
+      0,
+      1,
+      0
+    ],
+    "Reptile_LPXYC178500_Hainan_oriental_leaf-toed_gecko_astrovirus_2_4327bp": [
+      0,
+      1,
+      0
+    ],
+    "Reptile_LPXYF118785_Hainan_astro-like_virus_1_13532bp": [
+      0,
+      1,
+      0
+    ],
+    "Reptile_WHWGC149849_Chinese_broad-headed_pond_turtle_astro-like_virus_9296bp": [
+      0,
+      1,
+      0
+    ],
+    "Reptile_ZGLXR62176_Guangdong_chinese_water_skink_astrovirus_6683bp": [
+      0,
+      1,
+      0
+    ],
+    "NC_002470_Turkey_astrovirus": [
+      0,
+      1,
+      0
+    ],
+    "NC_003790_Chicken_astrovirus": [
+      0,
+      1,
+      0
+    ],
+    "NC_005790_Turkey_astrovirus_2": [
+      0,
+      1,
+      0
+    ],
+    "NC_012437_Duck_astrovirus": [
+      0,
+      1,
+      0
+    ],
+    "NC_001943_Human_astrovirus": [
+      1,
+      1,
+      0
+    ],
+    "NC_002469_Ovine_astrovirus": [
+      0,
+      1,
+      0
+    ],
+    "NC_004579_Mink_astrovirus": [
+      0,
+      1,
+      0
+    ],
+    "NC_011400_Astrovirus_MLB1": [
+      1,
+      1,
+      0
+    ],
+    "NC_013060_Astrovirus_VA1": [
+      1,
+      1,
+      0
+    ],
+    "NC_015935_Mouse_astrovirus": [
+      0,
+      1,
+      0
+    ],
+    "NC_016155_Astrovirus_MLB2": [
+      1,
+      1,
+      0
+    ],
+    "NC_016896_Astrovirus_wild_boar": [
+      0,
+      1,
+      0
+    ],
+    "NC_018669_Astrovirus_VA2": [
+      0,
+      1,
+      0
+    ],
+    "NC_018702_Murine_astrovirus": [
+      0,
+      1,
+      0
+    ],
+    "NC_019026_Astrovirus_VA3": [
+      1,
+      1,
+      0
+    ],
+    "NC_019027_Astrovirus_VA4": [
+      1,
+      1,
+      0
+    ],
+    "NC_019028_Astrovirus_MLB3": [
+      1,
+      1,
+      0
+    ],
+    "NC_019494_Porcine_astrovirus_3": [
+      0,
+      1,
+      0
+    ],
+    "NC_022249_Feline_astrovirus_2": [
+      0,
+      1,
+      0
+    ],
+    "NC_023632_Bovine_astrovirus_B170": [
+      0,
+      1,
+      0
+    ],
+    "NC_023636_Porcine_astrovirus_5": [
+      0,
+      1,
+      0
+    ],
+    "NC_023674_Porcine_astrovirus_2": [
+      0,
+      1,
+      0
+    ],
+    "NC_023675_Porcine_astrovirus_4": [
+      0,
+      1,
+      0
+    ],
+    "NC_024297_Bovine_astrovirus": [
+      0,
+      1,
+      0
+    ],
+    "NC_024472_Human_astrovirus_BF34": [
+      1,
+      1,
+      0
+    ],
+    "NC_024498_Bovine_astrovirus": [
+      0,
+      1,
+      0
+    ],
+    "NC_024701_Feline_astrovirus_D1": [
+      0,
+      1,
+      0
+    ],
+    "NC_025346_Rabbit_astrovirus": [
+      0,
+      1,
+      0
+    ],
+    "NC_025379_Mamastrovirus_3": [
+      0,
+      1,
+      0
+    ],
+    "QBJ04608.1_Tasmanian_devil-associated_astrovirus_1_Sarcophilus_harrisii_491": [
+      0,
+      1,
+      0
+    ],
+    "QII88294.1_White-tailed_deer_astrovirus_Odocoileus_virginianus_1305": [
+      0,
+      1,
+      0
+    ],
+    "QPI69528.2_Feline_astrovirus_3_Felis_catus_519": [
+      0,
+      1,
+      0
+    ],
+    "QTP76096.1_Water_buffalo_astrovirus_Bubalus_bubalis_1307": [
+      0,
+      1,
+      0
+    ],
+    "UMO75842.1_Sichuan_mamastrovirus_12_1327": [
+      0,
+      1,
+      0
+    ],
+    "UWK09061.1_Gerbil_astrovirus_Meriones_unguiculatus_502": [
+      0,
+      1,
+      0
+    ],
+    "YP_009345898.1_Qinghai_Himalayan_marmot_astrovirus_1_512": [
+      0,
+      1,
+      0
+    ],
+    "YP_009345903.1_Qinghai_Himalayan_marmot_astrovirus_2_510": [
+      0,
+      1,
+      0
+    ],
+    "YP_009664783.1_Bat_astrovirus_Tm_Guangxi_LD77_2007_470": [
+      0,
+      1,
+      0
+    ],
+    "YP_009664787.1_Mamastrovirus_18_816": [
+      0,
+      1,
+      0
+    ],
+    "YP_010087797.1_Noni_mosaic_virus_3077": [
+      0,
+      0,
+      1
+    ],
+    "YP_010087632.1_Costus_stripe_mosaic_virus_3046": [
+      0,
+      0,
+      1
+    ],
+    "YP_010087230.1_Dendrobium_chlorotic_mosaic_virus_3189": [
+      0,
+      0,
+      1
+    ],
+    "Poty_NP_954611_Beet_mosaic_virus": [
+      0,
+      0,
+      1
+    ],
+    "Poty_NP_871002_Onion_yellow_dwarf_virus": [
+      0,
+      0,
+      1
+    ],
+    "Poty_NP_056867_Tobacco_vein_mottling_virus": [
+      0,
+      0,
+      1
+    ],
+    "YP_010086861.1_Passiflora_edulis_symptomless_virus_3173": [
+      0,
+      0,
+      1
+    ],
+    "YP_010086847.1_Alpinia_oxyphylla_mosaic_virus_2626": [
+      0,
+      0,
+      1
+    ],
+    "UTQ50668.1_Mentha_macluravirus_1_Mentha_x_piperita_2630": [
+      0,
+      0,
+      1
+    ],
+    "Poty_YP_006590058_Chinese_yam_necrotic_mosaic_virus": [
+      0,
+      0,
+      1
+    ],
+    "QVN46485.1_Polygonatum_kingianum_virus_5_Polygonatum_kingianum_3093": [
+      0,
+      0,
+      1
+    ],
+    "QMP81800.1_Grapevine-associated_poty-like_virus_1_Vitis_vinifera_3568": [
+      0,
+      0,
+      1
+    ],
+    "QLC36605.1_Stylosanthes_mosaic-associated_virus_1_Stylosanthes_guianensis_2960": [
+      0,
+      0,
+      1
+    ],
+    "Poty_YP_001788991_Squash_vein_yellowing_virus": [
+      0,
+      0,
+      1
+    ],
+    "Poty_NP_659025_Oat_mosaic_virus": [
+      0,
+      0,
+      1
+    ],
+    "Poty_NP_612585_Brome_streak_mosaic_virus": [
+      0,
+      0,
+      1
+    ]
+  },
+  "ranks": [
+    "Realm",
+    "Kingdom",
+    "Phylum",
+    "Class",
+    "Order",
+    "Family",
+    "Genus",
+    "Species"
+  ],
+  "value_counts": {
+    "Realm": {
+      "Riboviria": 94
+    },
+    "Kingdom": {
+      "Orthornavirae": 94
+    },
+    "Phylum": {
+      "Pisuviricota": 94
+    },
+    "Class": {
+      "Stelpaviricetes": 94
+    },
+    "Order": {
+      "Stellavirales": 76,
+      "Patatavirales": 16
+    },
+    "Family": {
+      "Astroviridae": 76,
+      "Potyviridae": 16
+    },
+    "Genus": {
+      "Mamastrovirus": 29,
+      "Avastrovirus": 4,
+      "Potyvirus": 7,
+      "Macluravirus": 3,
+      "Ipomovirus": 1,
+      "Bymovirus": 1,
+      "Roymovirus": 1,
+      "Tritimovirus": 1
+    },
+    "Species": {
+      "Avastrovirus 2": 1,
+      "Onion yellow dwarf virus": 1,
+      "Squash vein yellowing virus": 1,
+      "Chinese yam necrotic mosaic virus": 1,
+      "Tobacco vein mottling virus": 1,
+      "Noni mosaic virus": 1,
+      "Dendrobium chlorotic mosaic virus": 1,
+      "Mamastrovirus 15": 1,
+      "Oat mosaic virus": 1,
+      "Mamastrovirus 1": 1,
+      "Beet mosaic virus": 1,
+      "Avastrovirus 1": 1,
+      "Mamastrovirus 18": 1,
+      "Alpinia oxyphylla mosaic virus": 1,
+      "Mamastrovirus 9": 1,
+      "Mamastrovirus 13": 1,
+      "Costus stripe mosaic virus": 1,
+      "Mamastrovirus 10": 1,
+      "Passiflora edulis symptomless virus": 1,
+      "Avastrovirus 3": 1,
+      "Brome streak mosaic virus": 1,
+      "Mamastrovirus 3": 1
+    }
+  },
+  "provenance": {
+    "tree": "Astro-Poty_RAxML_result.nwk",
+    "taxonomy_csv": "Astro-Poty.csv",
+    "note": "demo fixture"
+  }
+}

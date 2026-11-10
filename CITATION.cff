@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use lpvid, please cite this repository and the accompanying resource record."
+title: "lpvid: an RNA virus discovery and characterization workflow"
+abstract: >-
+  lpvid is a command-line workflow for RNA virus discovery and characterization
+  from reads, contigs or protein inputs. It combines ORF prediction, reference
+  prefiltering, RdRP identification, supergroup classification, phylogenetic
+  placement and bilingual HTML reporting.
+type: software
+authors:
+  - name: "NickShannn"
+repository-code: "https://github.com/NickShannn/lpvid"
+url: "https://github.com/NickShannn/lpvid"
+license: "Apache-2.0"
+version: "0.2"
+date-released: "2026-11-11"
+keywords:
+  - RNA virus discovery
+  - RdRP identification
+  - metatranscriptomics
+  - phylogenetic placement
+  - bioinformatics workflow

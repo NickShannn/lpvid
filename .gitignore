@@ -1,0 +1,63 @@
+# Python 与构建
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+
+# 本机配置与运行状态
+config/local.yaml
+runs/
+cache/
+logs/
+*.pid
+
+# 原始测序数据与运行输入（体积从数十 GB 起，绝不入库）
+read_data/
+
+# 实际模型、数据库和生成索引（独立资源包发布）
+assets/phylo/
+assets/supergroup24/
+assets/RdRP_blast_ref/
+
+# Large external resources remain separate; selected runtime resources below 200 MiB are bundled.
+resources/*
+!resources/RESOURCE_MANIFEST.tsv
+!resources/README.md
+!resources/README.zh-CN.md
+!resources/EXTERNAL_RESOURCES.md
+!resources/EXTERNAL_RESOURCES.zh-CN.md
+!resources/src/
+!resources/rdrp/
+!resources/phylo/
+resources/phylo/adapter_dir/
+!resources/models/
+resources/models/*
+!resources/models/classifier/
+resources/models/classifier/*
+!resources/models/classifier/pipeline/
+!resources/models/classifier/model/
+!resources/blastdb/
+resources/blastdb/refseq_protein/*
+!resources/blastdb/refseq_protein/TAXID_viruses.txt
+!resources/blastdb/refseq_protein/TAXID_cellular.txt
+
+# 本机兼容库和大型原始工程
+runtime/
+orf_rework/
+
+# 构建产物
+third_party/fastorf/target/
+*.o
+*.so
+
+# 编辑器与系统文件
+.vscode/
+.idea/
+.DS_Store
+
+# 本机资源暂存路径（仅用于生成清单时统计大小，不入库）
+resources/src/staging.local.json

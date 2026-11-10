@@ -1,0 +1,31 @@
+environments:
+  lucaphylo: /opt/conda/envs/lpvid/bin/python
+  qc: /opt/conda/envs/lpvid/bin/python
+  rdrp: /opt/conda/envs/lpvid/bin/python
+
+tools:
+  diamond: /opt/conda/envs/lpvid/bin/diamond
+  cd_hit: /opt/conda/envs/lpvid/bin/cd-hit
+  node: node
+
+assets:
+  phylo_root: resources/phylo
+  phylo_base_model: resources/models/lucaphylo/checkpoint-81000
+
+  rdrp_180_db: resources/rdrp/rdrp_reference.dmnd
+  rdrp_180_csv: resources/rdrp/rdrp_reference.csv
+  supergroups_mapping: supergroups_mapping.csv
+
+  refseq_db: resources/blastdb/refseq_protein/refseq_protein.dmnd
+  viral_taxids: resources/blastdb/refseq_protein/TAXID_viruses.txt
+  cellular_taxids: resources/blastdb/refseq_protein/TAXID_cellular.txt
+
+  rrna_ssu: resources/rrna/silva_ssu
+  rrna_lsu: resources/rrna/silva_lsu
+
+  rdrp_model_dir: resources/models/rdrp_detector
+  runtime_lib_dir: runtime/libs
+
+  classifier_pipeline: resources/models/classifier/pipeline
+  classifier_encoder: resources/models/classifier/encoder/checkpoint-18000
+  classifier_model: resources/models/classifier/model/Ref_Tree_Orf_All_orf_tree_processed_Pool_Mean

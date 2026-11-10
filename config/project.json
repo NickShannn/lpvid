@@ -1,0 +1,7 @@
+{
+  "display_name": "lpvid",
+  "distribution": "lpvid",
+  "command": "lpvid",
+  "version": "0.2",
+  "description": "Viral identification and characterization workflow"
+}
