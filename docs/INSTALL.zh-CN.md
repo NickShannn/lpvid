@@ -30,7 +30,7 @@ Node.js 仅在运行可选的树浏览器 JavaScript 测试时需要，不是运
 ## 2. 克隆仓库
 
 ```bash
-git clone https://github.com/<org>/lpvid.git   # <org> 替换为实际发布组织
+git clone https://github.com/NickShannn/lpvid.git
 cd lpvid
 git status        # 分支或 tag：0.2
 ```

@@ -29,7 +29,7 @@ reads、组装 contigs 或蛋白序列输入，识别含 RdRP 的序列，按 18
 ## 安装摘要
 
 ```bash
-git clone https://github.com/<org>/lpvid.git
+git clone https://github.com/NickShannn/lpvid.git
 cd lpvid
 
 conda env create -f environment.yml -n lpvid

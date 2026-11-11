@@ -35,7 +35,7 @@ bilingual HTML reports.
 ## Installation summary
 
 ```bash
-git clone https://github.com/<org>/lpvid.git
+git clone https://github.com/NickShannn/lpvid.git
 cd lpvid
 
 conda env create -f environment.yml -n lpvid

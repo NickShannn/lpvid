@@ -32,7 +32,7 @@ running the workflow.
 ## 2. Clone the repository
 
 ```bash
-git clone https://github.com/<org>/lpvid.git   # replace <org> with the releasing organization
+git clone https://github.com/NickShannn/lpvid.git
 cd lpvid
 git status        # branch or tag: 0.2
 ```
