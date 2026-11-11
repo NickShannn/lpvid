@@ -1,7 +1,8 @@
 # External resources for lpvid 0.2
 
-Resource record: `ZENODO_RECORD_URL_PENDING`
-DOI: `ZENODO_DOI_PENDING`
+Resource record: https://doi.org/10.5281/zenodo.24122793 (concept DOI; always
+resolves to the latest version)
+DOI: `10.5281/zenodo.24122793`
 
 The resource record contains five archives. Download all five into a temporary
 directory, verify their SHA-256 values, and extract them from the repository

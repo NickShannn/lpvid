@@ -1,7 +1,7 @@
 # lpvid 0.2 外部资源
 
-资源记录：`ZENODO_RECORD_URL_PENDING`
-DOI：`ZENODO_DOI_PENDING`
+资源记录：https://doi.org/10.5281/zenodo.24122793（概念 DOI，始终指向最新版本）
+DOI：`10.5281/zenodo.24122793`
 
 资源记录包含五个压缩包。请全部下载到临时目录，先校验 SHA-256，再在仓库根目录
 解压。每个压缩包都解压到 `resources/`，文件会落到 `config/default.yaml` 与
