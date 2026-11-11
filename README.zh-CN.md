@@ -36,8 +36,13 @@ conda env create -f environment.yml -n lpvid
 conda activate lpvid
 pip install --no-deps -e .
 
-# 配置本机环境路径，并将单独分发的 adapter、大型模型与数据库放入 resources/。
+# 生成本机私有配置（默认使用仓库相对资源路径）。
 cp config/local.example.yaml config/local.yaml
+
+# 从 Zenodo 资源记录下载 5 个压缩包，校验后解压到 resources/。
+# 压缩包名称、SHA-256 与步骤见 resources/EXTERNAL_RESOURCES.zh-CN.md：
+# sha256sum -c SHA256SUMS.txt
+# for a in lpvid-0.2-*.tar.gz; do tar xzf "$a"; done
 
 lpvid doctor        # 资源放置前，大型资源项显示 missing 属于预期
 lpvid prepare       # adapter 资源包就位后执行

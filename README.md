@@ -42,9 +42,14 @@ conda env create -f environment.yml -n lpvid
 conda activate lpvid
 pip install --no-deps -e .
 
-# Configure the environment paths, then place the separately distributed
-# adapters, model checkpoints and large databases under resources/.
+# Create the machine-local configuration (repository-relative resource paths).
 cp config/local.example.yaml config/local.yaml
+
+# Download the five archives from the Zenodo resource record, verify and
+# extract them under resources/. Archive names, SHA-256 values and steps are
+# listed in resources/EXTERNAL_RESOURCES.md:
+# sha256sum -c SHA256SUMS.txt
+# for a in lpvid-0.2-*.tar.gz; do tar xzf "$a"; done
 
 lpvid doctor        # missing large-resource entries are expected before placement
 lpvid prepare       # run this after the adapter package is in place
